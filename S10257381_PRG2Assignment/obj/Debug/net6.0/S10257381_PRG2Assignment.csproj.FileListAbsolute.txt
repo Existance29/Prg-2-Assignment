@@ -1,0 +1,14 @@
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\S10257381_PRG2Assignment.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\S10257381_PRG2Assignment.AssemblyInfoInputs.cache
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\S10257381_PRG2Assignment.AssemblyInfo.cs
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\S10257381_PRG2Assignment.csproj.CoreCompileInputs.cache
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\S10257381_PRG2Assignment.exe
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\S10257381_PRG2Assignment.deps.json
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\S10257381_PRG2Assignment.runtimeconfig.json
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\S10257381_PRG2Assignment.dll
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\S10257381_PRG2Assignment.pdb
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\S10257381_PRG2Assignment.dll
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\refint\S10257381_PRG2Assignment.dll
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\S10257381_PRG2Assignment.pdb
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\S10257381_PRG2Assignment.genruntimeconfig.cache
+C:\Users\silve\Documents\GitHub\Prg-2-Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\ref\S10257381_PRG2Assignment.dll
