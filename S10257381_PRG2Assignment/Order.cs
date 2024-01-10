@@ -41,25 +41,38 @@ namespace S10257381_PRG2Assignment
 			timeReceived = tr;
 		}
 
-		public void ModifyIceCream(int id)
+		public void ModifyIceCream(int id, IceCream modifiedIcecream)
 		{
-
+			iceCreamList[id].option = modifiedIcecream.option;
+			iceCreamList[id].scoops = modifiedIcecream.scoops;
+			iceCreamList[id].flavours = modifiedIcecream.flavours;
+			iceCreamList[id].toppings = modifiedIcecream.toppings;
 		}
 
 		public void AddIceCream(IceCream iceCream)
 		{
-
+			iceCreamList.Add(iceCream);
 		}
 
 		public void DeleteIceCream(int id)
 		{
-
+			iceCreamList.RemoveAt(id);
+			if (iceCreamList  == null )
+			{
+				Console.WriteLine("You cannot have 0 Ice creams in an order.");
+			}
 		}
 
 		public double CalculateTotal()
 		{
-
-		}
+			double total = 0;
+			foreach (IceCream icecream in iceCreamList)
+			{
+				double itemprice = icecream.CalculatePrice();
+				total += itemprice;
+			}
+			return total;
+        }
 
         public override string ToString()
         {
