@@ -7,7 +7,9 @@
 
 using S10257381_PRG2Assignment;
 
-Console.WriteLine("hello brydon");
+//List of customers
+string path = "customers.csv";
+
 
 //Test class console.write
 
