@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace S10257381_PRG2Assignment
 {
-    class PointCard:Customer
+    class PointCard
     {
         //Properties
         public int points { get; set; }

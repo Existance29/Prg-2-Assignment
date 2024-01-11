@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace S10257381_PRG2Assignment
 {
-	class Order: IceCream
+	class Order
 	{
 
 		//Properties
