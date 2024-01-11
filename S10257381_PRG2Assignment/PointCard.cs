@@ -23,21 +23,36 @@ namespace S10257381_PRG2Assignment
         {
             points = p;
             punchCard = pc;
+            tier = "Ordinary"; //defaults to ordinary tier. To be updated later
         }
 
-        public void AddPoints(int points)
+        public void AddPoints(int p)
         {
-            
+            points += p;
+            //Increase their tier based on their new points
+            if (points >= 100)
+            {
+                tier = "Gold";
+            }
+            else if (points >= 50 && tier != "Gold") { //do not allow for tier dropping
+                tier = "Silver";
+            }
         }
 
-        public void RedeemPoints(int points)
+        public void RedeemPoints(int p)
         {
-
+            //Only gold and silver members can redeem
+            if (tier == "Gold" || tier == "Silver")
+            {
+                points -= p;
+            }
         }
 
         public void Punch()
         {
-
+            //increase the punchCard counter
+            //Logic for free ice cream will be handled by main program
+            punchCard++;
         }
 
         public override string ToString()
