@@ -58,7 +58,7 @@ namespace S10257381_PRG2Assignment
                 else if (option == "Cone")
                 {
                     Console.Write("Scoops : ");
-                    int scoops = Console.ReadLine();
+                    int scoops = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Flavours : ");
                     string flavours = Console.ReadLine();
                     Console.Write("Toppings : ");
@@ -70,7 +70,7 @@ namespace S10257381_PRG2Assignment
                 else if (option == "Waffle")
                 {
                     Console.Write("Scoops : ");
-                    int scoops = Console.ReadLine();
+                    int scoops = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Flavours : ");
                     string flavours = Console.ReadLine();
                     Console.Write("Toppings : ");
