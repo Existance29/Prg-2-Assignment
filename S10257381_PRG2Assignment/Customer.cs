@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +34,41 @@ namespace S10257381_PRG2Assignment
             dob = d;
         }
 
+        private int getIntInput(string prompt)
+        {
+            int op;
+            while (true)
+            {
+                Console.Write(prompt);
+                string inp = Console.ReadLine().ToLower();
+                if (int.TryParse(inp, out op))
+                {
+                    break;
+
+                }
+                Console.WriteLine("Invalid Input! It has to be an integer. Please try again.\n");
+            }
+            return op;
+        }
+
+        private string getValuesInput(string prompt, string[] validArray)
+        {
+            string validString = string.Join(",", validArray);
+            string op;
+            while (true)
+            {
+                Console.Write(prompt);
+                string inp = Console.ReadLine();
+                if (validArray.Contains(inp))
+                {
+                    op = inp;
+                    break;
+                }
+                Console.WriteLine($"Invalid Input! The valid values are {validString}. Please try again.\n");
+            }
+            return op;
+        }
+
         public Order MakeOrder()
         {
             Order orders = new Order();
@@ -43,31 +79,56 @@ namespace S10257381_PRG2Assignment
                 string customer = Console.ReadLine();
 
                 Console.Write("Enter your Ice cream order");
-                Console.Write("Option : ");
-                string option = Console.ReadLine();
-                if (option == "Cup")
+                string option = getValuesInput("Option: ", new string[] { "cup", "cone", "waffle" }).ToLower();
+                int scoops = getIntInput("Scoops: ");
+                List<Flavour> flavours = new List<Flavour>();
+                List<Topping> toppings = new List<Topping>();
+                for (int i = 0; i < scoops; i++)
                 {
-                    Console.Write("Scoops : ");
-                    int scoops = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("Flavours : ");
-                    string flavours = Console.ReadLine();
-                    Console.Write("Toppings : ");
-                    string toppings = Console.ReadLine();
-                    Cup cup = new Cup(option,scoops,flavours,toppings);
+                    string flavourName = getValuesInput("Flavour: ", new string[] {"vanilla", "chocolate", "strawberry", "durian", "ube", "sea salt"});
+                    int flavourQuantity;
+                    while (true)
+                    {
+                        int FQ = getIntInput("Quantity of Flavour: ");
+                        if (FQ < scoops-i)
+                        {
+                            flavourQuantity = FQ;
+                            break;
+                        }
+                        Console.WriteLine("Invalid quantity of flavours! Please try again");
+                        
+                    }
+                    bool premium = false;
+                    if (flavourQuantity > 0)
+                    { 
+                        
+                    }
+                    flavours.Add(new Flavour(flavourName, premium, flavourQuantity));
+                    i += flavourQuantity - 1;
+                    
                 }
-                else if (option == "Cone")
+                while (true)
                 {
-                    Console.Write("Scoops : ");
-                    int scoops = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("Flavours : ");
-                    string flavours = Console.ReadLine();
-                    Console.Write("Toppings : ");
-                    string toppings = Console.ReadLine();
+                    string topping = getValuesInput("Topping (enter 'done' to continue):", new string[] { "sprinkles", "mochi", "sago", "oreos", "done"});
+                    if (topping == "done")
+                    {
+                        break;
+                    }
+                    toppings.Add(new Topping(topping));
+                }
+                if (option == "cup")
+                {
+                    orders.AddIceCream(new Cup(option,scoops,flavours,toppings));
+                }
+                else if (option == "cone")
+                {
+
                     Console.Write("Do you want it dipped? [Y/N] ");
+
                     bool dipped = Console.ReadLine();
                     Cone cone = new Cone(option, scoops, flavours, toppings, dipped);
                 }
-                else if (option == "Waffle")
+                else
                 {
                     Console.Write("Scoops : ");
                     int scoops = Convert.ToInt32(Console.ReadLine());

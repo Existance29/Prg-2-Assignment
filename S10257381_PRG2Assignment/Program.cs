@@ -11,9 +11,8 @@ using S10257381_PRG2Assignment;
 string path = "customers.csv";
 
 
-//Test class console.write
-
-Flavour fav = new Flavour("Vanilla", false, 1);
-Topping top = new Topping("Sprinkles");
-Cup cup = new Cup("Cup",2, new List<Flavour> {fav}, new List<Topping> {top});
-Console.WriteLine(cup);
+string[] c = File.ReadAllLines(path);
+foreach (string line in c)
+{
+    Console.WriteLine(line);
+}
