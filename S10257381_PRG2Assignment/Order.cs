@@ -39,6 +39,7 @@ namespace S10257381_PRG2Assignment
 		{
 			id = i;
 			timeReceived = tr;
+			iceCreamList = new List<IceCream>();
 		}
 
 		public void ModifyIceCream(int id, IceCream modifiedIcecream)
