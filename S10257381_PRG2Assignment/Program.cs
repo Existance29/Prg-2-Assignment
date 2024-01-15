@@ -29,6 +29,15 @@ for (int i = 1; i < customerFile.Length; i++)
     customerList.Add(customer);
 }
 
+Queue<Order> orderList = new Queue<Order>();
+string[] orderFile = readLines("orders.csv");
+for (int i = 1; i < orderFile.Length; i++)
+{
+    string[] y = orderFile[i].Split(",");
+    Order order = new Order(Convert.ToInt32(y[0]), Convert.ToDateTime(y[2]));
+    orderList.Enqueue(order);
+
+}
 
 while (true)
 {
@@ -63,6 +72,11 @@ while (true)
     }
 
     Console.WriteLine();
+
+    if (inp == "2")
+    {
+
+    }
 }
 //#3
 
