@@ -124,17 +124,17 @@ namespace S10257381_PRG2Assignment
                 {
 
                     Console.Write("Do you want it dipped? [Y/N] ");
-                    bool dipped = Console.ReadLine();
+                    bool dipped = Convert.ToBoolean(Console.ReadLine());
                     Cone cone = new Cone(option, scoops, flavours, toppings, dipped);
                 }
                 else
                 {
                     Console.Write("Scoops : ");
-                    int scoops = Convert.ToInt32(Console.ReadLine());
+                    int scoop = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Flavours : ");
-                    string flavours = Console.ReadLine();
+                    string flavour = Console.ReadLine();
                     Console.Write("Toppings : ");
-                    string toppings = Console.ReadLine();
+                    string topping = Console.ReadLine();
                     Console.Write("Waffle flavour : ");
                     string wf = Console.ReadLine();
                     Waffle waffle = new Waffle(option,scoops, flavours, toppings,wf);
