@@ -132,7 +132,7 @@ namespace S10257381_PRG2Assignment
             //If the waffleFlavour is inside the array, account for the additional cost
             if (new string[] { "red velvet", "charcoal", "pandan" }.Contains(waffleFlavour))
             {
-                finalout += 2;
+                finalout += 3;
             }
             return finalout;
         }
