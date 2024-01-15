@@ -27,3 +27,8 @@ C:\Ngee Ann Poly\Sem 1.2\PRG 2\PRG2Assignment\S10257381_PRG2Assignment\bin\Debug
 C:\Ngee Ann Poly\Sem 1.2\PRG 2\PRG2Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\S10257381_PRG2Assignment.pdb
 C:\Ngee Ann Poly\Sem 1.2\PRG 2\PRG2Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\S10257381_PRG2Assignment.genruntimeconfig.cache
 C:\Ngee Ann Poly\Sem 1.2\PRG 2\PRG2Assignment\S10257381_PRG2Assignment\obj\Debug\net6.0\ref\S10257381_PRG2Assignment.dll
+C:\Ngee Ann Poly\Sem 1.2\PRG 2\PRG2Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\orders.csv
+C:\Ngee Ann Poly\Sem 1.2\PRG 2\PRG2Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\customers.csv
+C:\Ngee Ann Poly\Sem 1.2\PRG 2\PRG2Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\flavours.csv
+C:\Ngee Ann Poly\Sem 1.2\PRG 2\PRG2Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\options.csv
+C:\Ngee Ann Poly\Sem 1.2\PRG 2\PRG2Assignment\S10257381_PRG2Assignment\bin\Debug\net6.0\toppings.csv
