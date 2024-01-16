@@ -209,6 +209,11 @@ while (true)
     }
 
     Console.WriteLine();
+
+    if (inp == "2")
+    {
+
+    }
 }
 //#3
 
