@@ -77,7 +77,8 @@ namespace S10257381_PRG2Assignment
 
         public override string ToString()
         {
-            return base.ToString();
+			string orders = string.Join("\n",iceCreamList);
+			return $"ID: {id}, Time Received: {TimeReceived}, Time Fulfilled: {TimeFulfilled}\nOrders:\n\n{orders}";
         }
 
 

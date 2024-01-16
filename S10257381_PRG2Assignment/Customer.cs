@@ -8,6 +8,16 @@ using System.Threading.Tasks;
 
 namespace S10257381_PRG2Assignment
 {
+
+    static class flavourHelper
+    {
+        //check if the flavour is a premium flavour, return true if true
+        public static bool isPremium(string f)
+        {   
+            //tolower so it is not case sensitive
+            return new string[] { "durain", "ebe", "sea salt" }.Contains(f.ToLower());
+        }
+    }
     //Methods for input validation - prompt user and evaluate input, return only valid inputs
     static class inputVal
     {
@@ -77,6 +87,7 @@ namespace S10257381_PRG2Assignment
             name = n;
             memberid = mid;
             dob = d;
+            orderHistory = new List<Order>();
         }
 
         public Order MakeOrder()
@@ -118,7 +129,7 @@ namespace S10257381_PRG2Assignment
                         Console.WriteLine("Invalid quantity of flavours! Please try again");
                         
                     }
-                    bool premium = new string[] { "durain", "ebe", "sea salt" }.Contains(flavourName.ToLower());
+                    bool premium = flavourHelper.isPremium(flavourName);
                     flavours.Add(new Flavour(flavourName, premium, flavourQuantity));
                     
                 }
