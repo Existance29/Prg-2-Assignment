@@ -33,7 +33,9 @@ namespace S10257381_PRG2Assignment
 
 		//Constructors
 
-		public Order() { }
+		public Order() {
+            iceCreamList = new List<IceCream>();
+        }
 
 		public Order(int i, DateTime tr)
 		{
@@ -77,7 +79,12 @@ namespace S10257381_PRG2Assignment
 
         public override string ToString()
         {
+<<<<<<< HEAD
             return base.ToString() + id + TimeReceived;
+=======
+			string orders = string.Join("\n",iceCreamList);
+			return $"ID: {id}, Time Received: {TimeReceived}, Time Fulfilled: {TimeFulfilled}\nOrders:\n\n{orders}";
+>>>>>>> 5b1962e078a5839e04c8c48c43a92678db629df9
         }
 
 

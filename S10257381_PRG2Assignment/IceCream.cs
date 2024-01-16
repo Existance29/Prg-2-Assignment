@@ -63,8 +63,8 @@ namespace S10257381_PRG2Assignment
 
             //Initalise variables to store the content of lists for the output
             //Use String.Join() method to concatenate the list elements with a comma seperator
-            string flavoursOut = string.Join(",", flavours);
-            string toppingsOut = string.Join(",", toppings);
+            string flavoursOut = string.Join(", ", flavours);
+            string toppingsOut = string.Join(", ", toppings);
 
             return $"Option: {option}\nScoops: {scoops}\nFlavours: {flavoursOut}\nToppings: {toppingsOut}";
         }
@@ -106,6 +106,16 @@ namespace S10257381_PRG2Assignment
             }
             return finalout;
         }
+        public override string ToString()
+        {
+            string flavoursOut = string.Join(", ", flavours);
+            string toppingsOut = string.Join(", ", toppings);
+            string chocolatedipped = "";
+            if (dipped) chocolatedipped = " (Chocolate-dipped)";
+            return $"Option: {option}{chocolatedipped}\nScoops: {scoops}\nFlavours: {flavoursOut}\nToppings: {toppingsOut}";
+        }
+
+
     }
 
     class Waffle : IceCream
@@ -135,6 +145,13 @@ namespace S10257381_PRG2Assignment
                 finalout += 3;
             }
             return finalout;
+        }
+
+        public override string ToString()
+        {
+            string flavoursOut = string.Join(", ", flavours);
+            string toppingsOut = string.Join(", ", toppings);
+            return $"Option: {option} ({waffleFlavour})\nScoops: {scoops}\nFlavours: {flavoursOut}\nToppings: {toppingsOut}";
         }
     }
 

@@ -23,7 +23,7 @@ namespace S10257381_PRG2Assignment
         {
             points = p;
             punchCard = pc;
-            tier = "Ordinary"; //defaults to ordinary tier. To be updated later
+            tier = "Ordinary"; //defaults to ordinary tier
         }
 
         public void AddPoints(int p)
