@@ -77,7 +77,7 @@ namespace S10257381_PRG2Assignment
 
         public override string ToString()
         {
-            return base.ToString();
+            return base.ToString() + id + TimeReceived;
         }
 
 

@@ -29,14 +29,14 @@ for (int i = 1; i < customerFile.Length; i++)
     customerList.Add(customer);
 }
 
-Queue<Order> orderList = new Queue<Order>();
+Queue<Order> orderRQueue = new Queue<Order>();
+Queue<Order> orderGQueue = new Queue<Order>();
 string[] orderFile = readLines("orders.csv");
 for (int i = 1; i < orderFile.Length; i++)
 {
     string[] y = orderFile[i].Split(",");
-    Order order = new Order(Convert.ToInt32(y[0]), Convert.ToDateTime(y[2]));
-    orderList.Enqueue(order);
-
+    Order orders = new Order(Convert.ToInt32(y[0]), Convert.ToDateTime(y[2]));
+    orderRQueue.Enqueue(orders);
 }
 
 while (true)
@@ -75,7 +75,28 @@ while (true)
 
     if (inp == "2")
     {
+        int count = 1;
+        Console.WriteLine("Current Orders (Regular Queue) : ");
+        //use the header from customer.csv and print it
+        string[] header = orderFile[0].Split(",");
+        Console.WriteLine("{0,-12}{1,-12}", header[0], header[2]);
+        foreach (Order o in orderRQueue)
+        {
+            Console.WriteLine("{0,-11} {1,-12}", o.id, o.TimeReceived.ToString());
+            count ++;
+        }
+    }
 
+    if (inp == "4")
+    {
+        Console.WriteLine("Customer Names:");
+        // Prints out all the names listed in customers.csv
+        foreach (Customer customer in customerList)
+        {
+            Console.WriteLine(customer.name);
+        }
+        Customer newOrder = new Customer();
+        newOrder.MakeOrder();
     }
 }
 //#3
