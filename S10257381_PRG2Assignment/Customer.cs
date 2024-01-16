@@ -95,16 +95,13 @@ namespace S10257381_PRG2Assignment
             Order orders = new Order();
             while (true)
             {
-                
-                Console.Write("Who is ordering? ");
-                string customer = Console.ReadLine();
 
-                Console.Write("Enter your Ice cream order");
+                Console.Write("Enter your Ice cream order\n");
                 string option = inputVal.getValuesInput("Option: ", new string[] { "cup", "cone", "waffle" }).ToLower();
                 List<Flavour> flavours = new List<Flavour>();
                 List<Topping> toppings = new List<Topping>();
                 int scoops = 0;
-                while (scoops <= 3)
+                while (scoops < 3)
                 {
                     string flavourName = inputVal.getValuesInput("Ice cream Flavour (enter 'done' to continue): ", new string[] {"vanilla", "chocolate", "strawberry", "durian", "ube", "sea salt", "done"});
                     if (flavourName == "done")
@@ -144,12 +141,12 @@ namespace S10257381_PRG2Assignment
                 }
                 if (option == "cup")
                 {
-                    orders.AddIceCream(new Cup(option,scoops,flavours,toppings));
+                    Cup c = new Cup(option, scoops, flavours, toppings);
+                    Console.WriteLine(c);
+                    orders.AddIceCream(c);
                 }
                 else if (option == "cone")
                 {
-
-                    Console.Write("Do you want it dipped? [Y/N]: ");
 
                     bool dipped = inputVal.getValuesInput("Do you want to upgrade your cone to a chocolate-dipped one? [Y/N]: ", new string[] { "y", "n" }) == "y";
                     orders.AddIceCream(new Cone(option, scoops, flavours, toppings, dipped));
@@ -163,7 +160,7 @@ namespace S10257381_PRG2Assignment
                 
 
 
-                string again = inputVal.getValuesInput("Would you like to add another ice cream to the order? [Y/N]", new string[] {"y","n"}).ToUpper();
+                string again = inputVal.getValuesInput("Would you like to add another ice cream to the order? [Y/N]: ", new string[] {"y","n"}).ToUpper();
 
                 if (again == "Y")
                 {

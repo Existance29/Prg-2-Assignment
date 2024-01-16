@@ -33,7 +33,9 @@ namespace S10257381_PRG2Assignment
 
 		//Constructors
 
-		public Order() { }
+		public Order() {
+            iceCreamList = new List<IceCream>();
+        }
 
 		public Order(int i, DateTime tr)
 		{

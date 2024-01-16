@@ -104,15 +104,15 @@ for (int i = 1; i < orderFile.Length; i++)
     //make new ice cream subclass and add it to the order's ice cream list
     if (x[4] == "Cup")
     {
-        order.iceCreamList.Add(new Cup(x[4], Convert.ToInt32(x[5]), flavours.Values.ToList(), toppings));
+        order.AddIceCream(new Cup(x[4], Convert.ToInt32(x[5]), flavours.Values.ToList(), toppings));
     }
     else if (x[4] == "Cone")
     { 
-        order.iceCreamList.Add(new Cone(x[4], Convert.ToInt32(x[5]), flavours.Values.ToList(), toppings, x[6]=="TRUE"));
+        order.AddIceCream(new Cone(x[4], Convert.ToInt32(x[5]), flavours.Values.ToList(), toppings, x[6]=="TRUE"));
     }
     else
     {
-        order.iceCreamList.Add(new Waffle(x[4], Convert.ToInt32(x[5]), flavours.Values.ToList(), toppings, x[7]));
+        order.AddIceCream(new Waffle(x[4], Convert.ToInt32(x[5]), flavours.Values.ToList(), toppings, x[7]));
     }
 }
 //Add order to customer's order history
@@ -185,6 +185,7 @@ while (true)
     }
     else if (inp == "4")
     {
+        printCustomers();
         //since customerDict stores customers from .csv and gets updated, there is no need to read the csv file again
         string cselect = inputVal.getValuesInput("Customer ID Number:", customerDict.Keys.ToArray());
         //get the associated customer
@@ -194,6 +195,9 @@ while (true)
         Order neworder = customer.MakeOrder();
         //link the new order to the customer's current order
         customer.currentOrder = neworder;
+        //set the order's properties
+        neworder.TimeReceived = DateTime.Now;
+        neworder.id = 5;
         //append the order to the appropriate queue
         //check customer's tier
         if (customer.rewards.tier == "Gold")
