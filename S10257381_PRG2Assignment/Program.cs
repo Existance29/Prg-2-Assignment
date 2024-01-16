@@ -6,6 +6,7 @@
 //==========================================================
 
 using S10257381_PRG2Assignment;
+using System.ComponentModel.Design;
 using System.Net.Http.Headers;
 //Get the directory of the program.cs file
 //Since Directory.getCurrentDirectory() returns the net6.0 folder, change the string to get the PRG2Assignment folder
@@ -17,7 +18,6 @@ string[] readLines(string f)
 {
     return File.ReadAllLines($"{curr_dir}{f}");
 }
-
 //customerDict stores all customers from customers.csv in a dictionary
 //Key: customer's ID, value: customer object
 Dictionary<string, Customer> customerDict = new Dictionary<string, Customer>();
@@ -131,6 +131,106 @@ int currOrderID = orderCSVDict.Count+1;
 //initalise gold and regular order queues
 Queue<Order> goldQueue = new Queue<Order>();
 Queue<Order> regularQueue = new Queue<Order>();
+
+void advancedA()
+{
+    //Initialise the variable to store the order object
+    Order order;
+    //process gold queue orders before regular queue
+    //check if gold queue is empty, then get the order from regular queue
+    if (goldQueue.Count != 0)
+    {
+        order = goldQueue.Dequeue();
+    }
+    else if (regularQueue.Count != 0)
+    {
+        order = regularQueue.Dequeue();
+    }
+    else
+    {
+        Console.WriteLine("There are no orders to process!");
+        return;
+    }
+    //output the ice creams
+    Console.WriteLine("Ice Creams");
+    Console.WriteLine(string.Join("\n\n", order.iceCreamList));
+    //Calculate and display the total bill
+    double total = order.CalculateTotal();
+    Console.WriteLine($"Total Bill: ${total.ToString("0.00")}");
+    //Find the customer associated with the order
+    Customer? customer = null;
+    foreach (Customer c in customerDict.Values.ToArray())
+    {
+        if (c.currentOrder != null && c.currentOrder.id == order.id)
+        {
+            customer = c;
+            break;
+        }
+    }
+    //in case the customer is not found
+    if (customer == null)
+    {
+        Console.WriteLine("Cannot find customer associated with the order.");
+        return;
+    }
+    Console.WriteLine($"Membership Status: {customer.rewards.tier}\nMembership Points: {customer.rewards.points}");
+    //check if birthday and deduct the cost of the most expensive ice cream
+    if (DateTime.Now == customer.dob)
+    {
+    //find the most expensive ice cream
+    double highest = 0;
+    foreach (IceCream x in order.iceCreamList)
+    {
+        if (x.CalculatePrice() > highest) highest = x.CalculatePrice();
+    }
+    //deduct the ice cream cost from the bill
+    total -= highest;
+    Console.WriteLine($"Birthday: -${highest.ToString("0.00")}");
+
+    }
+
+    //check punch card
+    //deduct the 11th ice cream (first ice cream in the order)
+    //this assumes that the ice creams in the order do not count towards the punch card
+    if (customer.rewards.punchCard == 10)
+    {
+        double punchDeduct = order.iceCreamList[0].CalculatePrice();
+        total -= punchDeduct;
+        Console.WriteLine($"11th ice cream: -${punchDeduct.ToString("0.00")}");
+        //reset punch card
+        customer.rewards.punchCard = 0;
+    }
+
+    //check if customer can redeem points
+    if (customer.rewards.tier == "Gold" || customer.rewards.tier == "Silver")
+    {
+        int pointRedeem = inputVal.getIntInput("How many points do you want to redeem? ");
+        customer.rewards.RedeemPoints(pointRedeem);
+        //calculate how much to deduct from the number of points
+        double pointDeduct = pointRedeem * 0.02;
+        total -= pointDeduct;
+        Console.WriteLine($"{pointRedeem} points redeemed: -${pointDeduct.ToString("0.00")}");
+    }
+
+    Console.WriteLine($"Final bill: ${total.ToString("0.00")}\nPress any key to pay");
+    Console.ReadKey();
+
+    //increment punchCard
+    //use max.min to ensure it doesnt exceed 10
+    customer.rewards.punchCard += Math.Min((order.iceCreamList.Count + customer.rewards.punchCard),10);
+    Console.WriteLine($"New punch card: {customer.rewards.punchCard}");
+    //calculate how many points to give to the user
+    int pointsEarned = Convert.ToInt32(Math.Floor(total*0.72));
+    customer.rewards.AddPoints(pointsEarned);
+    Console.WriteLine($"Points Earned: {pointsEarned}");
+
+    //set the order's time fufilled
+    order.TimeFulfilled = DateTime.Now;
+    //add order to customer's history
+    customer.orderHistory.Add(order);
+    //remove the currentOrder from the customer
+    customer.currentOrder = null;
+}
 while (true)
 {
     //Print menu
@@ -141,6 +241,7 @@ while (true)
     Console.WriteLine("[4] Create a customer’s order");
     Console.WriteLine("[5] Display order details of a customer");
     Console.WriteLine("[6] Modify order details");
+    Console.WriteLine("[7] Process an order and checkout");
     Console.WriteLine("[0] Exit");
     Console.WriteLine("-------------------------------");
     Console.Write("Enter an option: ");
@@ -191,21 +292,21 @@ while (true)
     {
         printCustomers();
         //since customerDict stores customers from .csv and gets updated, there is no need to read the csv file again
-        string cselect = inputVal.getValuesInput("Customer ID Number:", customerDict.Keys.ToArray());
+        string cselect = inputVal.getValuesInput("Customer ID Number: ", customerDict.Keys.ToArray());
         //get the associated customer
         Customer customer = customerDict[cselect];
         //get the user's order -> prompt user for the options and ice creams
         //makeOrder returns the order object
         Order neworder = customer.MakeOrder();
-        //link the new order to the customer's current order
-        customer.currentOrder = neworder;
         //set the order's properties
         neworder.TimeReceived = DateTime.Now;
         neworder.id = currOrderID;
+        //link the new order to the customer's current order
+        customer.currentOrder = neworder;
         //append the order to the appropriate queue
         //check customer's tier
         if (customer.rewards.tier == "Gold")
-        { 
+        {
             goldQueue.Enqueue(neworder);
         }
         else
@@ -217,13 +318,13 @@ while (true)
         //update the order ID
         currOrderID++;
     }
+    else if (inp == "7")
+    {
+        advancedA();
+    }
 
     Console.WriteLine();
 
-    if (inp == "2")
-    {
-
-    }
 }
-//#3
+
 

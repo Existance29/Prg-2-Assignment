@@ -25,7 +25,9 @@ namespace S10257381_PRG2Assignment
         //Return values of class properties
         public override string ToString()
         {
-            return $"Type: {type}, Premium: {premium}, Quantity: {quantity}";
+            string displaypremium = "";
+            if (premium) displaypremium = " (premium)";
+            return $"{type}{displaypremium} {quantity}";
         }
     }
 }

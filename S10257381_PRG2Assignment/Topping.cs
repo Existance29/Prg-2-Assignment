@@ -21,7 +21,7 @@ namespace S10257381_PRG2Assignment
         //Return value of class property
         public override string ToString()
         {
-            return $"Type: {type}";
+            return $"{type}";
         }
     }
 }

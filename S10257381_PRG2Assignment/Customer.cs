@@ -15,7 +15,7 @@ namespace S10257381_PRG2Assignment
         public static bool isPremium(string f)
         {   
             //tolower so it is not case sensitive
-            return new string[] { "durain", "ebe", "sea salt" }.Contains(f.ToLower());
+            return new string[] { "durian", "ube", "sea salt" }.Contains(f.ToLower());
         }
     }
     //Methods for input validation - prompt user and evaluate input, return only valid inputs
@@ -45,7 +45,7 @@ namespace S10257381_PRG2Assignment
         public static string getValuesInput(string prompt, string[] validArray)
         {
             //convert the array to a string for outputting the valid options
-            string validString = string.Join(",", validArray);
+            string validString = string.Join(", ", validArray);
             string op;
             while (true)
             {
@@ -132,7 +132,7 @@ namespace S10257381_PRG2Assignment
                 }
                 while (true)
                 {
-                    string topping = inputVal.getValuesInput("Topping (enter 'done' to continue):", new string[] { "sprinkles", "mochi", "sago", "oreos", "done"});
+                    string topping = inputVal.getValuesInput("Topping (enter 'done' to continue): ", new string[] { "sprinkles", "mochi", "sago", "oreos", "done"});
                     if (topping == "done")
                     {
                         break;
