@@ -212,10 +212,10 @@ while (true)
         {
             regularQueue.Enqueue(neworder);
         }
-        //update the order ID
-        currOrderID++;
         //confirmation message
         Console.WriteLine("Order has been successfully made!");
+        //update the order ID
+        currOrderID++;
     }
 
     Console.WriteLine();
