@@ -123,6 +123,10 @@ foreach (KeyValuePair<string, Order> kv in orderCSVDict)
     //add the order to the customer orderHistory
     customerDict[customerID].orderHistory.Add(kv.Value);
 }
+//stores the ID of the next order
+//assumes that the orders' id are incremental
+//Account for the orders in orders.csv on initalisation
+int currOrderID = orderCSVDict.Count+1;
 
 //initalise gold and regular order queues
 Queue<Order> goldQueue = new Queue<Order>();
@@ -197,7 +201,7 @@ while (true)
         customer.currentOrder = neworder;
         //set the order's properties
         neworder.TimeReceived = DateTime.Now;
-        neworder.id = 5;
+        neworder.id = currOrderID;
         //append the order to the appropriate queue
         //check customer's tier
         if (customer.rewards.tier == "Gold")
@@ -208,6 +212,8 @@ while (true)
         {
             regularQueue.Enqueue(neworder);
         }
+        //update the order ID
+        currOrderID++;
         //confirmation message
         Console.WriteLine("Order has been successfully made!");
     }
