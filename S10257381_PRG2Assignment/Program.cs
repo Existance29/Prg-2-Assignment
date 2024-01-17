@@ -10,11 +10,11 @@ using System.ComponentModel.Design;
 using System.Net.Http.Headers;
 //Get the directory of the program.cs file
 //Since Directory.getCurrentDirectory() returns the net6.0 folder, change the string to get the PRG2Assignment folder
-string curr_dir = Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\net6.0","\\");
+string curr_dir = Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\net6.0", "\\");
 
 //read files in the same directory as program.cs, more convenient to place files in this directory than net6.0
 //calls File.ReadAllLines, return a string array, each element represents one line of the file
-string[] readLines(string f) 
+string[] readLines(string f)
 {
     return File.ReadAllLines($"{curr_dir}{f}");
 }
@@ -36,10 +36,6 @@ for (int i = 1; i < customerFile.Length; i++)
     customerDict.Add(x[1], customer);
 }
 
-<<<<<<< HEAD
-Queue<Order> orderRQueue = new Queue<Order>();
-Queue<Order> orderGQueue = new Queue<Order>();
-=======
 void printCustomers()
 {
     //use the header from customer.csv and print it
@@ -53,7 +49,6 @@ void printCustomers()
 }
 //Get orders from orders.csv and add it to the customer's order history
 //Rows with the same order id are merged into one order
->>>>>>> 5b1962e078a5839e04c8c48c43a92678db629df9
 string[] orderFile = readLines("orders.csv");
 //a dictionary to store orders from the csv file
 //key is in this format: orderID.MemberID, value is order object
@@ -61,11 +56,6 @@ string[] orderFile = readLines("orders.csv");
 Dictionary<String, Order> orderCSVDict = new Dictionary<String, Order>();
 for (int i = 1; i < orderFile.Length; i++)
 {
-<<<<<<< HEAD
-    string[] y = orderFile[i].Split(",");
-    Order orders = new Order(Convert.ToInt32(y[0]), Convert.ToDateTime(y[2]));
-    orderRQueue.Enqueue(orders);
-=======
     //store the values of the row into an array
     string[] x = orderFile[i].Split(",");
     //set the key of the dictionary
@@ -76,7 +66,7 @@ for (int i = 1; i < orderFile.Length; i++)
         Order orderAdd = new Order(Convert.ToInt32(x[0]), Convert.ToDateTime(x[2]));
         orderAdd.TimeFulfilled = Convert.ToDateTime(x[3]);
         //add order to dict
-        orderCSVDict.Add(key, orderAdd);  
+        orderCSVDict.Add(key, orderAdd);
     }
     //order object is present, add ice cream to order
     Order order = orderCSVDict[key];
@@ -86,7 +76,7 @@ for (int i = 1; i < orderFile.Length; i++)
     for (int j = 11; j <= 14; j++)
     {
         //if there is a topping, add it to the list
-        if (x[j] != "") toppings.Add(new Topping(x[j])); 
+        if (x[j] != "") toppings.Add(new Topping(x[j]));
     }
 
     //merge duplicate flavours together into one flavour object with the appropriate quantity
@@ -96,7 +86,7 @@ for (int i = 1; i < orderFile.Length; i++)
     for (int j = 8; j <= 10; j++)
     {
         //check if there is a flavour there
-        if (x[j] != "") 
+        if (x[j] != "")
         {
             //flavour is already stored
             if (!flavours.ContainsKey(x[j]))
@@ -117,14 +107,13 @@ for (int i = 1; i < orderFile.Length; i++)
         order.AddIceCream(new Cup(x[4], Convert.ToInt32(x[5]), flavours.Values.ToList(), toppings));
     }
     else if (x[4] == "Cone")
-    { 
-        order.AddIceCream(new Cone(x[4], Convert.ToInt32(x[5]), flavours.Values.ToList(), toppings, x[6]=="TRUE"));
+    {
+        order.AddIceCream(new Cone(x[4], Convert.ToInt32(x[5]), flavours.Values.ToList(), toppings, x[6] == "TRUE"));
     }
     else
     {
         order.AddIceCream(new Waffle(x[4], Convert.ToInt32(x[5]), flavours.Values.ToList(), toppings, x[7]));
     }
->>>>>>> 5b1962e078a5839e04c8c48c43a92678db629df9
 }
 //Add order to customer's order history
 foreach (KeyValuePair<string, Order> kv in orderCSVDict)
@@ -137,7 +126,7 @@ foreach (KeyValuePair<string, Order> kv in orderCSVDict)
 //stores the ID of the next order
 //assumes that the orders' id are incremental
 //Account for the orders in orders.csv on initalisation
-int currOrderID = orderCSVDict.Count+1;
+int currOrderID = orderCSVDict.Count + 1;
 
 //initalise gold and regular order queues
 Queue<Order> goldQueue = new Queue<Order>();
@@ -188,15 +177,15 @@ void advancedA()
     //check if birthday and deduct the cost of the most expensive ice cream
     if (DateTime.Now == customer.dob)
     {
-    //find the most expensive ice cream
-    double highest = 0;
-    foreach (IceCream x in order.iceCreamList)
-    {
-        if (x.CalculatePrice() > highest) highest = x.CalculatePrice();
-    }
-    //deduct the ice cream cost from the bill
-    total -= highest;
-    Console.WriteLine($"Birthday: -${highest.ToString("0.00")}");
+        //find the most expensive ice cream
+        double highest = 0;
+        foreach (IceCream x in order.iceCreamList)
+        {
+            if (x.CalculatePrice() > highest) highest = x.CalculatePrice();
+        }
+        //deduct the ice cream cost from the bill
+        total -= highest;
+        Console.WriteLine($"Birthday: -${highest.ToString("0.00")}");
 
     }
 
@@ -228,10 +217,10 @@ void advancedA()
 
     //increment punchCard
     //use max.min to ensure it doesnt exceed 10
-    customer.rewards.punchCard += Math.Min((order.iceCreamList.Count + customer.rewards.punchCard),10);
+    customer.rewards.punchCard += Math.Min((order.iceCreamList.Count + customer.rewards.punchCard), 10);
     Console.WriteLine($"New punch card: {customer.rewards.punchCard}");
     //calculate how many points to give to the user
-    int pointsEarned = Convert.ToInt32(Math.Floor(total*0.72));
+    int pointsEarned = Convert.ToInt32(Math.Floor(total * 0.72));
     customer.rewards.AddPoints(pointsEarned);
     Console.WriteLine($"Points Earned: {pointsEarned}");
 
@@ -336,24 +325,6 @@ while (true)
 
     Console.WriteLine();
 
-<<<<<<< HEAD
-    if (inp == "2")
-    {
-        int count = 1;
-        Console.WriteLine("Current Orders (Regular Queue) : ");
-        //use the header from customer.csv and print it
-        string[] header = orderFile[0].Split(",");
-        Console.WriteLine("{0,-12}{1,-12}", header[0], header[2]);
-        foreach (Order o in orderRQueue)
-        {
-            Console.WriteLine("{0,-11} {1,-12}", o.id, o.TimeReceived.ToString());
-            count ++;
-        }
-    }
-
-    
-=======
->>>>>>> 5b1962e078a5839e04c8c48c43a92678db629df9
 }
 
 
