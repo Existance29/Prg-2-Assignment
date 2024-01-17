@@ -255,6 +255,20 @@ while (true)
     {
         printCustomers();
     }
+    else if (inp == "2")
+    {
+        Console.WriteLine("Current Orders (Gold Queue) : ");
+        foreach (Order o in goldQueue)
+        {
+            Console.WriteLine("{0}",o.ToString());
+        }
+        Console.WriteLine();
+        Console.WriteLine("Current Orders (Regular Queue) : ");
+        foreach (Order o in regularQueue)
+        {
+            Console.WriteLine("{0}", o.ToString());
+        }
+    }
     else if (inp == "3")
     {
         Console.Write("Name: ");
