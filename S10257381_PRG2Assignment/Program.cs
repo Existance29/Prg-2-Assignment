@@ -258,15 +258,17 @@ while (true)
     else if (inp == "2")
     {
         Console.WriteLine("Current Orders (Gold Queue) : ");
+        //Prints out every order from the gold queue
         foreach (Order o in goldQueue)
         {
-            Console.WriteLine("{0}",o.ToString());
+            Console.WriteLine(o.ToString());
         }
         Console.WriteLine();
+        //Prints out every order from the regular queue
         Console.WriteLine("Current Orders (Regular Queue) : ");
         foreach (Order o in regularQueue)
         {
-            Console.WriteLine("{0}", o.ToString());
+            Console.WriteLine(o.ToString());
         }
     }
     else if (inp == "3")
@@ -331,6 +333,55 @@ while (true)
         Console.WriteLine("Order has been successfully made!");
         //update the order ID
         currOrderID++;
+    }
+    else if (inp == "5")
+    {
+        printCustomers();
+        //selects customer from list of customers in csv file
+        string cname = inputVal.getValuesInput("Select a customer via ID : ", customerDict.Keys.ToArray());
+        //retrieve selected customer
+        Customer c = customerDict[cname];
+        Console.WriteLine("Current orders: ");
+        //display the current orders
+        if (c.currentOrder != null)
+        {
+            Console.WriteLine(c.currentOrder.ToString());
+        }
+        else //when retrieved customer does not have any current orders placed
+        {
+            Console.WriteLine("No current orders placed.");
+        }
+        Console.WriteLine();
+        //display order history
+        Console.WriteLine("Order History: ");
+        //reads through each order stored in retrieved customer's order history to display the order details
+        foreach (Order order in c.orderHistory)
+        {
+            Console.WriteLine("Order ID: {0}",order.id);
+            Console.WriteLine("Time Received: {0}",order.TimeReceived);
+            Console.WriteLine("Time Fulfilled: {0}",order.TimeFulfilled);
+
+            foreach (IceCream iceCream in order.iceCreamList)
+            {
+                Console.WriteLine("Ice Cream Details:");
+                Console.WriteLine("Option: {0}", iceCream.option);
+                Console.WriteLine("Scoops: {0}", iceCream.scoops);
+                Console.WriteLine("Flavours: {0}", iceCream.flavours.ToArray());
+                Console.WriteLine("Toppings: {0}", iceCream.toppings.ToArray());
+                Console.WriteLine("Price: ${0}", iceCream.CalculatePrice().ToString("0.00"));
+                Console.WriteLine();
+            }
+            Console.WriteLine("-------------------------------------------------------------------------------------");
+        }
+        if (c.orderHistory == null)
+        {
+            Console.WriteLine("Customer has yet to create an order!");
+        }
+        
+    }
+    else if (inp == "6")
+    {
+
     }
     else if (inp == "7")
     {
