@@ -392,6 +392,54 @@ while (true)
         {
             Console.WriteLine(c.currentOrder.ToString());
         }
+        else
+        {
+            Console.WriteLine("There are currently no orders from this customer.");
+        }
+        Console.WriteLine("-------------------------------");
+        Console.WriteLine("[1] Modify existing ice cream");
+        Console.WriteLine("[2] Add new ice cream to order");
+        Console.WriteLine("[3] Delete existing ice cream in order");
+        Console.WriteLine("-------------------------------");
+        Console.Write("What would you like to do? ");
+        string opt = Console.ReadLine();
+
+        if (opt == "1")
+        {
+
+        }
+        else if (opt == "2")
+        {
+            //retrieve associated customer
+            Customer customer = customerDict[cname];
+            //makeOrder creates order and returns order object
+            Order neworder = customer.MakeOrder();
+            //set the order's properties
+            neworder.TimeReceived = DateTime.Now;
+            neworder.id = currOrderID;
+            //add the new ice cream order to the customer's current order
+            customer.currentOrder = neworder;
+            //append the order to the appropriate queue
+            //check customer's tier
+            if (customer.rewards.tier == "Gold")
+            {
+                goldQueue.Enqueue(neworder);
+            }
+            else
+            {
+                regularQueue.Enqueue(neworder);
+            }
+            //confirmation message
+            Console.WriteLine("Order has been successfully made!");
+            //update the order ID
+            currOrderID++;
+        }
+        else if (inp == "3")
+        {
+            Console.Write("Which ice cream order would you like to cancel? ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            
+        }
 
     }
     else if (inp == "7")
