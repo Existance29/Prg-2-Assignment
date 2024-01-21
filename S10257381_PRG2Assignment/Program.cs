@@ -381,6 +381,17 @@ while (true)
     }
     else if (inp == "6")
     {
+        printCustomers();
+        //selects customer from list of customers in csv file
+        string cname = inputVal.getValuesInput("Select a customer via ID : ", customerDict.Keys.ToArray());
+        //retrieve selected customer
+        Customer c = customerDict[cname];
+        Console.WriteLine("{0}'s Current orders: ", customerDict[cname].name);
+        //display the current orders
+        if (c.currentOrder != null)
+        {
+            Console.WriteLine(c.currentOrder.ToString());
+        }
 
     }
     else if (inp == "7")
