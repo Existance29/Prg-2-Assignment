@@ -11,7 +11,6 @@ namespace S10257381_PRG2Assignment
 
     static class flavourHelper
     {
-        string[] pFlavours = new string[] { };
         //check if the flavour is a premium flavour, return true if true
         public static bool isPremium(string f)
         {   
