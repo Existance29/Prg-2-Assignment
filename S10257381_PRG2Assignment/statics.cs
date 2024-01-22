@@ -20,6 +20,8 @@ namespace S10257381_PRG2Assignment
     //this class is used to store toppings, flavour information and options as properties
     static class IceCreamData
     {
+        //store all flavours in a dictionary
+        //key: flavour name, value: flavour cost
         public static Dictionary<string, double> flavours = new Dictionary<string, double>();
     }
     //Methods for input validation - prompt user and evaluate input, return only valid inputs
@@ -55,7 +57,7 @@ namespace S10257381_PRG2Assignment
             {
                 Console.Write(prompt);
                 string inp = Console.ReadLine().ToLower(); //set the input to lowercase, inputs are not case-sensetive
-                if (validArray.Contains(inp) || inp == "done") //check if input is correct. Done is a universally-accepted word, used for quitting menus
+                if (validArray.Contains(inp)) //check if input is correct. Done is a universally-accepted word, used for quitting menus
                 {
                     op = inp;
                     break;
