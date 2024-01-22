@@ -285,6 +285,10 @@ void advancedA()
     customer.currentOrder = null;
 }
 
+void advancedB()
+{
+
+}
 
 
 while (true)
@@ -536,6 +540,10 @@ while (true)
     else if (inp == "7")
     {
         advancedA();
+    }
+    else if (inp == "8")
+    {
+        advancedB();
     }
 
     Console.WriteLine();
