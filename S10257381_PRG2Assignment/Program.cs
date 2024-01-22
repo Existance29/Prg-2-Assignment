@@ -175,7 +175,7 @@ void advancedA()
     }
     Console.WriteLine($"Membership Status: {customer.rewards.tier}\nMembership Points: {customer.rewards.points}");
     //check if birthday and deduct the cost of the most expensive ice cream
-    if (DateTime.Now == customer.dob)
+    if (customer.Isbirthday())
     {
         //find the most expensive ice cream
         double highest = 0;
