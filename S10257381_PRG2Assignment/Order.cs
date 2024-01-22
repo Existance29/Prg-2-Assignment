@@ -47,8 +47,10 @@ namespace S10257381_PRG2Assignment
 
         public void ModifyIceCream(int id)
         {
+            //removes icecream
             iceCreamList.RemoveAt(id);
-            iceCreamList.Add(orderMaker.iceCream());
+            //adds in the new order created with the orderMaker class
+            iceCreamList.Insert(id,orderMaker.iceCream());
         }
 
         public void AddIceCream(IceCream iceCream)

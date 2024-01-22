@@ -455,9 +455,13 @@ while (true)
             {
                 Console.WriteLine($"ID: {i}\n{iceCreams[i]}\n\n");
             }
+            //ask for user input of which specific ice cream order to modify
             Console.Write("Which ice cream would you like to modify? ");
             int id = Convert.ToInt32(Console.ReadLine());
+            //calls modifyicecream method
             c.currentOrder.ModifyIceCream(id);
+            //confirmation message
+            Console.WriteLine("Ice cream order successfully modified!");
         }
         else if (opt == "2")
         {
