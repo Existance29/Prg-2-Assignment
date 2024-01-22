@@ -57,7 +57,7 @@ namespace S10257381_PRG2Assignment
             {
                 Console.Write(prompt);
                 string inp = Console.ReadLine().ToLower(); //set the input to lowercase, inputs are not case-sensetive
-                if (validArray.Contains(inp)) //check if input is correct. Done is a universally-accepted word, used for quitting menus
+                if (validArray.Contains(inp) || inp == "done") //check if input is correct. Done is a universally-accepted word, used for quitting menus
                 {
                     op = inp;
                     break;

@@ -161,6 +161,10 @@ int currOrderID = orderCSVDict.Count + 1;
 Queue<Order> goldQueue = new Queue<Order>();
 Queue<Order> regularQueue = new Queue<Order>();
 
+//Add a list used to store ice creams ordered
+//it will be added to orders.csv
+List<IceCream> orderedIceCreams = new List<IceCream>();
+
 void advancedA()
 {
     //Initialise the variable to store the order object
