@@ -8,6 +8,8 @@
 using S10257381_PRG2Assignment;
 using System.ComponentModel.Design;
 using System.Net.Http.Headers;
+using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 //Get the directory of the program.cs file
 //Since Directory.getCurrentDirectory() returns the net6.0 folder, change the string to get the PRG2Assignment folder
 string curr_dir = Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\net6.0", "\\");
@@ -21,9 +23,12 @@ string[] readLines(string f)
 //customerDict stores all customers from customers.csv in a dictionary
 //Key: customer's ID, value: customer object
 Dictionary<string, Customer> customerDict = new Dictionary<string, Customer>();
-//add all customers from customers.csv to customerList
 string[] customerFile = readLines("customers.csv");
-for (int i = 1; i < customerFile.Length; i++)
+//this varible is meant to store the length of customers in the customers.csv file
+//this is used with customerDict to add any new customers to add to the csv file on exit
+int customerCSVLength = customerFile.Length;
+//add all customers from customers.csv to customerList
+for (int i = 1; i < customerCSVLength; i++)
 {
     string[] x = customerFile[i].Split(",");
     //create customer object
@@ -47,6 +52,30 @@ void printCustomers()
         Console.WriteLine("{0,-12}{1,-12}{2,-15}{3,-20}{4,-20}{5}", c.name, c.memberid, c.dob.ToString("MM-dd-yyyy"), c.rewards.tier, c.rewards.points, c.rewards.punchCard);
     }
 }
+
+//store premium flavours
+List<string> pFlavours = new List<string>();
+//store all flavours in a dictionary
+//key: flavour name, value: flavour cost
+Dictionary<string, double> flavourData = new Dictionary<string, double>();
+//get a list of flavours from flavour.csv
+string[] flavourFile = readLines("flavours.csv");
+for (int i = 1; i < flavourFile.Length; i++)
+{
+    string[] x = flavourFile[i].Split(",");
+    double cost = Convert.ToDouble(x[1]);
+    //assume that all non-free flavours are premium
+    //if its premium, add it to pFlavours
+    if (cost > 0)
+    {
+        pFlavours.Add(x[0]);
+    }
+    flavourData.Add(x[0], cost);
+}
+//update the appropriate static classes
+flavourHelper.premiumFlavours = pFlavours.ToArray();
+IceCreamData.flavours = flavourData;
+
 //Get orders from orders.csv and add it to the customer's order history
 //Rows with the same order id are merged into one order
 string[] orderFile = readLines("orders.csv");
@@ -233,9 +262,6 @@ void advancedA()
 }
 
 
-//This stores the newCustomers created
-//Contents of this list will be written to customers.csv on program exit
-List<List<String>> newCustomerList = new List<List<String>>();
 
 while (true)
 {
@@ -255,6 +281,17 @@ while (true)
 
     if (inp == "0")
     {
+        //store the lines to be added to the file
+        List<string> customerAdd = new List<string> { };
+        //loop through only the new customers from customerDict
+        for (int i = customerCSVLength-1; i < customerDict.Count; i++)
+        {
+            Customer c = customerDict.ElementAt(i).Value;
+            //add the line to the new customer
+            customerAdd.Add($"{c.name},{c.memberid},{c.dob.ToString("dd/MM/yyyy")},{c.rewards.tier},{c.rewards.points}{c.rewards.punchCard}");
+        }
+        //add new customers to Customer.csv
+        File.AppendAllLines($"{curr_dir}customers.csv", customerAdd);
         break;
     }
     else if (inp == "1")
@@ -279,6 +316,7 @@ while (true)
     }
     else if (inp == "3")
     {
+        //create new customer
         Console.Write("Name: ");
         string name = Console.ReadLine();
         int id = inputVal.getIntInput("ID Number: ");
@@ -303,8 +341,6 @@ while (true)
         Customer newCustomer = new Customer(name, id, dob);
         newCustomer.rewards = new PointCard(0, 0);
         customerDict.Add(Convert.ToString(id), newCustomer);
-        //add to customers.csv
-        File.AppendAllLines($"{curr_dir}customers.csv", new string[] { $"{name},{id},{dob.ToString("dd/MM/yyyy")},Ordinary,0,0" });
         //Confirmation message
         Console.WriteLine("Regristration Successful!");
 
