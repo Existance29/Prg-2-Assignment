@@ -409,11 +409,9 @@ while (true)
 
             foreach (IceCream iceCream in order.iceCreamList)
             {
+                
                 Console.WriteLine("Ice Cream Details:");
-                Console.WriteLine("Option: {0}", iceCream.option);
-                Console.WriteLine("Scoops: {0}", iceCream.scoops);
-                Console.WriteLine("Flavours: {0}", iceCream.flavours.ToArray());
-                Console.WriteLine("Toppings: {0}", iceCream.toppings.ToArray());
+                Console.WriteLine(iceCream);
                 Console.WriteLine("Price: ${0}", iceCream.CalculatePrice().ToString("0.00"));
                 Console.WriteLine();
             }
