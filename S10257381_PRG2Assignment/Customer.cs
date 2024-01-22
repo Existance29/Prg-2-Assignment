@@ -18,6 +18,75 @@ namespace S10257381_PRG2Assignment
             return new string[] { "durian", "ube", "sea salt" }.Contains(f.ToLower());
         }
     }
+    static class orderMaker
+    {
+        public static IceCream iceCream()
+        {
+            Console.Write("Enter your Ice cream order\n");
+            string option = inputVal.getValuesInput("Option: ", new string[] { "cup", "cone", "waffle" }).ToLower();
+            List<Flavour> flavours = new List<Flavour>();
+            List<Topping> toppings = new List<Topping>();
+            //store the number of scoops in an ice cream
+            int scoops = 0;
+            //prompt for flavour + scoops, until 3 scoops
+            while (scoops < 3)
+            {
+                string flavourName = inputVal.getValuesInput("Ice cream Flavour (enter 'done' to continue): ", new string[] { "vanilla", "chocolate", "strawberry", "durian", "ube", "sea salt", "done" });
+                if (flavourName == "done")
+                {
+                    //ensure that an ice cream has at least one scoop
+                    if (scoops == 0)
+                    {
+                        Console.WriteLine("You need to order at least one scoop of ice cream.");
+                        continue;
+                    }
+                    break;
+                }
+                int flavourQuantity;
+                //make sure that there is a max of 3 scoops
+                while (true)
+                {
+                    int FQ = inputVal.getIntInput("Quantity: ");
+                    if (FQ <= 3 - scoops)
+                    {
+                        flavourQuantity = FQ;
+                        scoops += FQ;
+                        break;
+                    }
+                    Console.WriteLine("Invalid quantity of flavours! Please try again");
+
+                }
+                bool premium = flavourHelper.isPremium(flavourName);
+                flavours.Add(new Flavour(flavourName, premium, flavourQuantity));
+
+            }
+            while (true)
+            {
+                string topping = inputVal.getValuesInput("Topping (enter 'done' to continue): ", new string[] { "sprinkles", "mochi", "sago", "oreos", "done" });
+                if (topping == "done")
+                {
+                    break;
+                }
+                toppings.Add(new Topping(topping));
+            }
+            if (option == "cup")
+            {
+                return new Cup(option, scoops, flavours, toppings);
+            }
+            else if (option == "cone")
+            {
+
+                bool dipped = inputVal.getValuesInput("Do you want to upgrade your cone to a chocolate-dipped one? [Y/N]: ", new string[] { "y", "n" }) == "y";
+                return new Cone(option, scoops, flavours, toppings, dipped);
+            }
+            else
+            {
+                Console.Write("Waffle flavour: ");
+                string wf = Console.ReadLine();
+                return new Waffle(option, scoops, flavours, toppings, wf);
+            }
+        }
+    }
     //Methods for input validation - prompt user and evaluate input, return only valid inputs
     static class inputVal
     {
@@ -93,73 +162,9 @@ namespace S10257381_PRG2Assignment
         public Order MakeOrder()
         {
             Order orders = new Order();
+            orders.AddIceCream(orderMaker.iceCream());
             while (true)
-            {
-
-                Console.Write("Enter your Ice cream order\n");
-                string option = inputVal.getValuesInput("Option: ", new string[] { "cup", "cone", "waffle" }).ToLower();
-                List<Flavour> flavours = new List<Flavour>();
-                List<Topping> toppings = new List<Topping>();
-                int scoops = 0;
-                while (scoops < 3)
-                {
-                    string flavourName = inputVal.getValuesInput("Ice cream Flavour (enter 'done' to continue): ", new string[] {"vanilla", "chocolate", "strawberry", "durian", "ube", "sea salt", "done"});
-                    if (flavourName == "done")
-                    { 
-                        if (scoops == 0)
-                        {
-                            Console.WriteLine("You need to order at least one scoop of ice cream.");
-                            continue;
-                        }
-                        break;
-                    }
-                    int flavourQuantity;
-                    while (true)
-                    {
-                        int FQ = inputVal.getIntInput("Quantity: ");
-                        if (FQ <= 3-scoops)
-                        {
-                            flavourQuantity = FQ;
-                            scoops += FQ;
-                            break;
-                        }
-                        Console.WriteLine("Invalid quantity of flavours! Please try again");
-                        
-                    }
-                    bool premium = flavourHelper.isPremium(flavourName);
-                    flavours.Add(new Flavour(flavourName, premium, flavourQuantity));
-                    
-                }
-                while (true)
-                {
-                    string topping = inputVal.getValuesInput("Topping (enter 'done' to continue): ", new string[] { "sprinkles", "mochi", "sago", "oreos", "done"});
-                    if (topping == "done")
-                    {
-                        break;
-                    }
-                    toppings.Add(new Topping(topping));
-                }
-                if (option == "cup")
-                {
-                    Cup c = new Cup(option, scoops, flavours, toppings);
-                    Console.WriteLine(c);
-                    orders.AddIceCream(c);
-                }
-                else if (option == "cone")
-                {
-
-                    bool dipped = inputVal.getValuesInput("Do you want to upgrade your cone to a chocolate-dipped one? [Y/N]: ", new string[] { "y", "n" }) == "y";
-                    orders.AddIceCream(new Cone(option, scoops, flavours, toppings, dipped));
-                }
-                else
-                {
-                    Console.Write("Waffle flavour: ");
-                    string wf = Console.ReadLine();
-                    orders.AddIceCream(new Waffle(option,scoops, flavours, toppings,wf));
-                }
-                
-
-
+            {  
                 string again = inputVal.getValuesInput("Would you like to add another ice cream to the order? [Y/N]: ", new string[] {"y","n"}).ToUpper();
 
                 if (again == "Y")
@@ -178,7 +183,7 @@ namespace S10257381_PRG2Assignment
 
         public bool Isbirthday()
         {
-            return true;
+            return DateTime.Now.Date == dob.Date;
         }
 
         public override string ToString()
