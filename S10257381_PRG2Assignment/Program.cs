@@ -18,7 +18,17 @@ string curr_dir = Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\net6.0"
 //calls File.ReadAllLines, return a string array, each element represents one line of the file
 string[] readLines(string f)
 {
-    return File.ReadAllLines($"{curr_dir}{f}");
+    try
+    {
+        return File.ReadAllLines($"{curr_dir}{f}");
+    }
+    catch(FileNotFoundException e)
+    { 
+        Console.WriteLine($"File Not found: {f}");
+        System.Environment.Exit(1);
+        return new string[] {}; // 
+    }
+
 }
 //customerDict stores all customers from customers.csv in a dictionary
 //Key: customer's ID, value: customer object
@@ -76,6 +86,16 @@ for (int i = 1; i < flavourFile.Length; i++)
 flavourHelper.premiumFlavours = pFlavours.ToArray();
 IceCreamData.flavours = flavourData;
 
+//store all toppings in a dictionary
+Dictionary<string, double> toppingData = new Dictionary<string, double>();
+//read the toppingsCSV file
+string[] toppingFile = readLines("flavours.csv");
+for (int i = 1; i < toppingFile.Length; i++)
+{
+    string[] x = flavourFile[i].Split(",");
+    double cost = Convert.ToDouble(x[1]);
+    toppingData.Add(x[0].ToLower(), cost);
+}
 //Get orders from orders.csv and add it to the customer's order history
 //Rows with the same order id are merged into one order
 string[] orderFile = readLines("orders.csv");
