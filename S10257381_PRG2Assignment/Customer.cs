@@ -11,6 +11,7 @@ namespace S10257381_PRG2Assignment
 
     static class flavourHelper
     {
+        string[] pFlavours = new string[] { };
         //check if the flavour is a premium flavour, return true if true
         public static bool isPremium(string f)
         {   
@@ -43,10 +44,11 @@ namespace S10257381_PRG2Assignment
                     break;
                 }
                 int flavourQuantity;
-                //make sure that there is a max of 3 scoops
+                //validate user input
                 while (true)
                 {
                     int FQ = inputVal.getIntInput("Quantity: ");
+                    //make sure that there is a max of 3 scoops
                     if (FQ <= 3 - scoops)
                     {
                         flavourQuantity = FQ;
@@ -56,10 +58,12 @@ namespace S10257381_PRG2Assignment
                     Console.WriteLine("Invalid quantity of flavours! Please try again");
 
                 }
+                //add flavour object to the list
                 bool premium = flavourHelper.isPremium(flavourName);
                 flavours.Add(new Flavour(flavourName, premium, flavourQuantity));
 
             }
+            //get toppings. Assume there is an infinite number of toppings that can be added
             while (true)
             {
                 string topping = inputVal.getValuesInput("Topping (enter 'done' to continue): ", new string[] { "sprinkles", "mochi", "sago", "oreos", "done" });
@@ -162,9 +166,9 @@ namespace S10257381_PRG2Assignment
         public Order MakeOrder()
         {
             Order orders = new Order();
-            orders.AddIceCream(orderMaker.iceCream());
             while (true)
-            {  
+            {
+                orders.AddIceCream(orderMaker.iceCream());
                 string again = inputVal.getValuesInput("Would you like to add another ice cream to the order? [Y/N]: ", new string[] {"y","n"}).ToUpper();
 
                 if (again == "Y")
