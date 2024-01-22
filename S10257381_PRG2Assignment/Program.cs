@@ -410,7 +410,16 @@ while (true)
 
         if (opt == "1")
         {
-
+            //store each current order icecream into a list to be printed out
+            List<IceCream> iceCreams = c.currentOrder.iceCreamList;
+            //print out the id of each icecream in the order and each icecream details
+            for (int i = 0; i < iceCreams.Count; i++)
+            {
+                Console.WriteLine($"ID: {i}\n{iceCreams[i]}\n\n");
+            }
+            Console.Write("Which ice cream would you like to modify? ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            c.currentOrder.ModifyIceCream(id);
         }
         else if (opt == "2")
         {
@@ -438,10 +447,25 @@ while (true)
             //update the order ID
             currOrderID++;
         }
-        else if (inp == "3")
+        else if (opt == "3")
         {
-            Console.Write("Which ice cream order would you like to cancel? ");
+            //store each current order icecream into a list to be printed out
+            List<IceCream> iceCreams = c.currentOrder.iceCreamList;
+            //print out the id of each icecream in the order and each icecream details
+            for (int i = 0; i < iceCreams.Count; i++)
+            {
+                Console.WriteLine($"ID: {i}\n{iceCreams[i]}\n\n");
+            }
+            //ask for user input on which icecream id would they like to remove
+            Console.Write("Which ice cream id would you like to cancel? ");
             int id = Convert.ToInt32(Console.ReadLine());
+            //remove the icecream by calling the method
+            c.currentOrder.DeleteIceCream(id);
+            //confirmation message to indicate that the icecream is removed
+            if (iceCreams[id] != null)
+            {
+                Console.WriteLine("Ice cream removed!");
+            }
         }
 
     }

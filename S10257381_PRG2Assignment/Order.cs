@@ -45,12 +45,79 @@ namespace S10257381_PRG2Assignment
             iceCreamList = new List<IceCream>();
         }
 
-        public void ModifyIceCream(int id, IceCream modifiedIcecream)
+        public void ModifyIceCream(int id)
         {
-            iceCreamList[id].option = modifiedIcecream.option;
-            iceCreamList[id].scoops = modifiedIcecream.scoops;
-            iceCreamList[id].flavours = modifiedIcecream.flavours;
-            iceCreamList[id].toppings = modifiedIcecream.toppings;
+            
+            Order orders = new Order();
+            while (true)
+            {
+
+                Console.Write("Enter your Ice cream order\n");
+                string option = inputVal.getValuesInput("Option: ", new string[] { "cup", "cone", "waffle" }).ToLower();
+                List<Flavour> flavours = new List<Flavour>();
+                List<Topping> toppings = new List<Topping>();
+                int scoops = 0;
+                while (scoops < 3)
+                {
+                    string flavourName = inputVal.getValuesInput("Ice cream Flavour (enter 'done' to continue): ", new string[] { "vanilla", "chocolate", "strawberry", "durian", "ube", "sea salt", "done" });
+                    if (flavourName == "done")
+                    {
+                        if (scoops == 0)
+                        {
+                            Console.WriteLine("You need to order at least one scoop of ice cream.");
+                            continue;
+                        }
+                        break;
+                    }
+                    int flavourQuantity;
+                    while (true)
+                    {
+                        int FQ = inputVal.getIntInput("Quantity: ");
+                        if (FQ <= 3 - scoops)
+                        {
+                            flavourQuantity = FQ;
+                            scoops += FQ;
+                            break;
+                        }
+                        Console.WriteLine("Invalid quantity of flavours! Please try again");
+
+                    }
+                    bool premium = flavourHelper.isPremium(flavourName);
+                    flavours.Add(new Flavour(flavourName, premium, flavourQuantity));
+
+                }
+                while (true)
+                {
+                    string topping = inputVal.getValuesInput("Topping (enter 'done' to continue): ", new string[] { "sprinkles", "mochi", "sago", "oreos", "done" });
+                    if (topping == "done")
+                    {
+                        break;
+                    }
+                    toppings.Add(new Topping(topping));
+                }
+                if (option == "cup")
+                {
+                    Cup c = new Cup(option, scoops, flavours, toppings);
+                    Console.WriteLine(c);
+                    orders.AddIceCream(c);
+                }
+                else if (option == "cone")
+                {
+
+                    bool dipped = inputVal.getValuesInput("Do you want to upgrade your cone to a chocolate-dipped one? [Y/N]: ", new string[] { "y", "n" }) == "y";
+                    orders.AddIceCream(new Cone(option, scoops, flavours, toppings, dipped));
+                }
+                else
+                {
+                    Console.Write("Waffle flavour: ");
+                    string wf = Console.ReadLine();
+                    orders.AddIceCream(new Waffle(option, scoops, flavours, toppings, wf));
+                }
+                
+                break;
+                
+
+            }
         }
 
         public void AddIceCream(IceCream iceCream)
