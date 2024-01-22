@@ -60,7 +60,7 @@ namespace S10257381_PRG2Assignment
 
         public bool Isbirthday()
         {
-            return DateTime.Now.Date == dob.Date;
+            return DateTime.Now.ToString("dd/MM") == dob.ToString("dd/MM");
         }
 
         public override string ToString()

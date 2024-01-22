@@ -312,7 +312,7 @@ while (true)
         {
             Customer c = customerDict.ElementAt(i).Value;
             //add the line to the new customer
-            customerAdd.Add($"{c.name},{c.memberid},{c.dob.ToString("dd/MM/yyyy")},{c.rewards.tier},{c.rewards.points}{c.rewards.punchCard}");
+            customerAdd.Add($"{c.name},{c.memberid},{c.dob.ToString("dd/MM/yyyy")},{c.rewards.tier},{c.rewards.points},{c.rewards.punchCard}");
         }
         //add new customers to Customer.csv
         File.AppendAllLines($"{curr_dir}customers.csv", customerAdd);

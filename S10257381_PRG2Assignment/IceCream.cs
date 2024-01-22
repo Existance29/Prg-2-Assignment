@@ -1,4 +1,5 @@
-﻿using System;
+﻿using S10257381_PRG2Assignment;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -31,7 +32,6 @@ namespace S10257381_PRG2Assignment
         public virtual double CalculatePrice() {
             //Initalise output variable and calculate topping cost
             double finalout = toppings.Count;
-
             //Calculate scoop cost (number of scoops)
             if (scoops == 1)
             {
