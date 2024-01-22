@@ -529,11 +529,6 @@ while (true)
             int id = Convert.ToInt32(Console.ReadLine());
             //remove the icecream by calling the method
             c.currentOrder.DeleteIceCream(id);
-            //confirmation message to indicate that the icecream is removed
-            if (iceCreams[id] != null)
-            {
-                Console.WriteLine("Ice cream removed!");
-            }
         }
 
     }
