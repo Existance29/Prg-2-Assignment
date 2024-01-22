@@ -54,10 +54,6 @@ string[] orderFile = readLines("orders.csv");
 //key is in this format: orderID.MemberID, value is order object
 //need to know which customer the order belongs to, so its stored in the dictionary's key
 Dictionary<String, Order> orderCSVDict = new Dictionary<String, Order>();
-
-//This stores the newCustomers created
-//Contents of this list will be written to customers.csv on program exit
-List<List<String>> newCustomer = new List<List<String>>();
 for (int i = 1; i < orderFile.Length; i++)
 {
     //store the values of the row into an array
@@ -235,6 +231,12 @@ void advancedA()
     //remove the currentOrder from the customer
     customer.currentOrder = null;
 }
+
+
+//This stores the newCustomers created
+//Contents of this list will be written to customers.csv on program exit
+List<List<String>> newCustomerList = new List<List<String>>();
+
 while (true)
 {
     //Print menu
