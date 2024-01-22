@@ -285,6 +285,10 @@ void advancedA()
     customer.currentOrder = null;
 }
 
+void advancedB()
+{
+
+}
 
 
 while (true)
@@ -429,11 +433,9 @@ while (true)
 
             foreach (IceCream iceCream in order.iceCreamList)
             {
+                
                 Console.WriteLine("Ice Cream Details:");
-                Console.WriteLine("Option: {0}", iceCream.option);
-                Console.WriteLine("Scoops: {0}", iceCream.scoops);
-                Console.WriteLine("Flavours: {0}", iceCream.flavours.ToArray());
-                Console.WriteLine("Toppings: {0}", iceCream.toppings.ToArray());
+                Console.WriteLine(iceCream);
                 Console.WriteLine("Price: ${0}", iceCream.CalculatePrice().ToString("0.00"));
                 Console.WriteLine();
             }
@@ -527,17 +529,16 @@ while (true)
             int id = Convert.ToInt32(Console.ReadLine());
             //remove the icecream by calling the method
             c.currentOrder.DeleteIceCream(id);
-            //confirmation message to indicate that the icecream is removed
-            if (iceCreams[id] != null)
-            {
-                Console.WriteLine("Ice cream removed!");
-            }
         }
 
     }
     else if (inp == "7")
     {
         advancedA();
+    }
+    else if (inp == "8")
+    {
+        advancedB();
     }
 
     Console.WriteLine();
