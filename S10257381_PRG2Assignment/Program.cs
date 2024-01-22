@@ -68,9 +68,9 @@ for (int i = 1; i < flavourFile.Length; i++)
     //if its premium, add it to pFlavours
     if (cost > 0)
     {
-        pFlavours.Add(x[0]);
+        pFlavours.Add(x[0].ToLower());
     }
-    flavourData.Add(x[0], cost);
+    flavourData.Add(x[0].ToLower(), cost);
 }
 //update the appropriate static classes
 flavourHelper.premiumFlavours = pFlavours.ToArray();
