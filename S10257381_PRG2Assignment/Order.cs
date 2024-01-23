@@ -69,6 +69,10 @@ namespace S10257381_PRG2Assignment
             {
                 iceCreamList.RemoveAt(id);
                 Console.WriteLine("Ice cream removed!");
+                if (iceCreamList.Count == 0)
+                {
+                    iceCreamList = null;
+                }
             }
         }
 
