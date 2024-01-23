@@ -23,6 +23,9 @@ namespace S10257381_PRG2Assignment
         //store all flavours in a dictionary
         //key: flavour name, value: flavour cost
         public static Dictionary<string, double> flavours = new Dictionary<string, double>();
+        //store all toppings in a dictionary
+        //key: name, cost
+        public static Dictionary<string, double> toppings = new Dictionary<string, double>();
     }
     //Methods for input validation - prompt user and evaluate input, return only valid inputs
     static class inputVal
@@ -81,6 +84,7 @@ namespace S10257381_PRG2Assignment
             //prompt for flavour + scoops, until 3 scoops
             while (scoops < 3)
             {
+                // make sure input only contains valid flavours
                 string flavourName = inputVal.getValuesInput("Ice cream Flavour (enter 'done' to continue): ", IceCreamData.flavours.Keys.ToArray());
                 if (flavourName == "done")
                 {
@@ -100,6 +104,7 @@ namespace S10257381_PRG2Assignment
                     //make sure that there is a max of 3 scoops
                     if (FQ <= 3 - scoops)
                     {
+                        //update the number of scoops and the flavour quantity
                         flavourQuantity = FQ;
                         scoops += FQ;
                         break;
@@ -107,21 +112,26 @@ namespace S10257381_PRG2Assignment
                     Console.WriteLine("Invalid quantity of flavours! Please try again");
 
                 }
-                //add flavour object to the list
+                //check if the flavour is premium and store it
                 bool premium = flavourHelper.isPremium(flavourName);
+                //make a new flavour object and add it to the list
                 flavours.Add(new Flavour(flavourName, premium, flavourQuantity));
 
             }
             //get toppings. Only allow for a maximum of 4 toppings
             for (int i = 0; i < 4; i++)
             {
-                string topping = inputVal.getValuesInput("Topping (enter 'done' to continue): ", new string[] { "sprinkles", "mochi", "sago", "oreos", "done" });
+                //make sure input only contains valid toppings
+                string topping = inputVal.getValuesInput("Topping (enter 'done' to continue): ", IceCreamData.toppings.Keys.ToArray());
                 if (topping == "done")
                 {
                     break;
                 }
                 toppings.Add(new Topping(topping));
             }
+
+            //get input for the subclass-specific properties and return their objects
+
             if (option == "cup")
             {
                 return new Cup(option, scoops, flavours, toppings);
@@ -135,7 +145,7 @@ namespace S10257381_PRG2Assignment
             else
             {
                 Console.Write("Waffle flavour: ");
-                string wf = Console.ReadLine();
+                string wf = inputVal.getValuesInput("Waffle flavour")
                 return new Waffle(option, scoops, flavours, toppings, wf);
             }
         }
