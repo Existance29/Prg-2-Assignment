@@ -149,7 +149,7 @@ namespace S10257381_PRG2Assignment
             else
             {
                 Console.Write("Waffle flavour: ");
-                string wf = inputVal.getValuesInput("Waffle flavour")
+                string wf = inputVal.getValuesInput("Waffle flavour", new string[] { "red velvet", "chocolate", "pandan", "original" });
                 return new Waffle(option, scoops, flavours, toppings, wf);
             }
         }
