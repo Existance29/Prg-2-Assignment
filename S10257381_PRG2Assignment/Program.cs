@@ -89,13 +89,16 @@ IceCreamData.flavours = flavourData;
 //store all toppings in a dictionary
 Dictionary<string, double> toppingData = new Dictionary<string, double>();
 //read the toppingsCSV file
-string[] toppingFile = readLines("flavours.csv");
+string[] toppingFile = readLines("toppings.csv");
 for (int i = 1; i < toppingFile.Length; i++)
 {
     string[] x = flavourFile[i].Split(",");
     double cost = Convert.ToDouble(x[1]);
     toppingData.Add(x[0].ToLower(), cost);
 }
+//update the appropriate static classes
+
+IceCreamData.toppings = toppingData;
 //Get orders from orders.csv and add it to the customer's order history
 //Rows with the same order id are merged into one order
 string[] orderFile = readLines("orders.csv");
@@ -412,6 +415,7 @@ while (true)
         //retrieve selected customer
         Customer c = customerDict[cname];
         Console.WriteLine("Current orders: ");
+        Console.WriteLine("------------------");
         //display the current orders
         if (c.currentOrder != null)
         {
@@ -424,6 +428,7 @@ while (true)
         Console.WriteLine();
         //display order history
         Console.WriteLine("Order History: ");
+        Console.WriteLine("------------------");
         //reads through each order stored in retrieved customer's order history to display the order details
         foreach (Order order in c.orderHistory)
         {
@@ -439,7 +444,7 @@ while (true)
                 Console.WriteLine("Price: ${0}", iceCream.CalculatePrice().ToString("0.00"));
                 Console.WriteLine();
             }
-            Console.WriteLine("-------------------------------------------------------------------------------------");
+            Console.WriteLine("------");
         }
         if (c.orderHistory == null)
         {

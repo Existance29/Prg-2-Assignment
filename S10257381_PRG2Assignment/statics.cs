@@ -55,7 +55,7 @@ namespace S10257381_PRG2Assignment
 
         //checks if a string input falls within set values, return the valid input
         //all elements in validArray will have to be lowercase, since input will also be converted to lower case.
-        public static string getValuesInput(string prompt, string[] validArray)
+        public static string getValuesInput(string prompt, string[] validArray, bool allowDone = true)
         {
             //convert the array to a string for outputting the valid options
             string validString = string.Join(", ", validArray);
@@ -64,7 +64,7 @@ namespace S10257381_PRG2Assignment
             {
                 Console.Write(prompt);
                 string inp = Console.ReadLine().ToLower(); //set the input to lowercase, inputs are not case-sensetive
-                if (validArray.Contains(inp) || inp == "done") //check if input is correct. Done is a universally-accepted word, used for quitting menus
+                if (validArray.Contains(inp) || (inp == "done" && allowDone)) //check if input is correct. Done is a universally-accepted word, used for quitting menus
                 {
                     op = inp;
                     break;
@@ -80,7 +80,7 @@ namespace S10257381_PRG2Assignment
         public static IceCream iceCream()
         {
             Console.Write("Enter your Ice cream order\n");
-            string option = inputVal.getValuesInput("Option: ", new string[] { "cup", "cone", "waffle" }).ToLower();
+            string option = inputVal.getValuesInput("Option: ", new string[] { "cup", "cone", "waffle" }, false).ToLower();
             List<Flavour> flavours = new List<Flavour>();
             List<Topping> toppings = new List<Topping>();
             //store the number of scoops in an ice cream
@@ -132,6 +132,7 @@ namespace S10257381_PRG2Assignment
                     break;
                 }
                 toppings.Add(new Topping(topping));
+                
             }
 
             //get input for the subclass-specific properties and return their objects
@@ -148,8 +149,7 @@ namespace S10257381_PRG2Assignment
             }
             else
             {
-                Console.Write("Waffle flavour: ");
-                string wf = inputVal.getValuesInput("Waffle flavour", new string[] { "red velvet", "chocolate", "pandan", "original" });
+                string wf = inputVal.getValuesInput("Waffle flavour: ", new string[] { "red velvet", "chocolate", "pandan", "original" });
                 return new Waffle(option, scoops, flavours, toppings, wf);
             }
         }
