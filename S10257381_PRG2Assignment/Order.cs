@@ -64,19 +64,15 @@ namespace S10257381_PRG2Assignment
 
         public void DeleteIceCream(int id)
         {
-            if (iceCreamList == null) //print message if there is no elements in the iceCreamList.
+            if (iceCreamList.Count == 1) //prints message if customer is trying to remove the only ice cream in the order
             {
                 Console.WriteLine("You cannot have 0 Ice creams in an order.");
             }
-            //confirmation message to indicate that the icecream is removed
             else
             {
                 iceCreamList.RemoveAt(id);
+                //confirmation message to indicate that the icecream is removed
                 Console.WriteLine("Ice cream removed!");
-                if (iceCreamList.Count == 0)
-                {
-                    iceCreamList = null;
-                }
             }
         }
 

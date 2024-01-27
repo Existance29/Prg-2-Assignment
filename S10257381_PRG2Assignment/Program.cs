@@ -92,7 +92,7 @@ Dictionary<string, double> toppingData = new Dictionary<string, double>();
 string[] toppingFile = readLines("toppings.csv");
 for (int i = 1; i < toppingFile.Length; i++)
 {
-    string[] x = flavourFile[i].Split(",");
+    string[] x = toppingFile[i].Split(",");
     double cost = Convert.ToDouble(x[1]);
     toppingData.Add(x[0].ToLower(), cost);
 }
@@ -461,13 +461,25 @@ while (true)
         Customer c = customerDict[cname];
         Console.WriteLine("{0}'s Current orders: ", customerDict[cname].name);
         //display the current orders
-        if (c.currentOrder != null)
+        try
         {
-            Console.WriteLine(c.currentOrder.ToString());
+            if (c.currentOrder != null)
+            {
+                Console.WriteLine(c.currentOrder.ToString());
+            }
+            else
+            {
+                /*if there is no current orders from the customer, it will not proceed to give customer options to modify
+                and lead them back to start menu again.*/
+                Console.WriteLine("There are currently no orders from this customer. Unable to modify orders.\nPlease add an order before doing so.");
+                continue;
+            }
         }
-        else
+        catch (NullReferenceException n)
         {
-            Console.WriteLine("There are currently no orders from this customer.");
+            //only happens when a customer with 1 order r
+            Console.WriteLine("There are currently no orders from this customer. Unable to modify orders.\nPlease add an order before doing so.");
+            continue;
         }
         Console.WriteLine("-------------------------------");
         Console.WriteLine("[1] Modify existing ice cream");
@@ -486,54 +498,68 @@ while (true)
             {
                 Console.WriteLine($"ID: {i}\n{iceCreams[i]}\n\n");
             }
-            //ask for user input of which specific ice cream order to modify
-            Console.Write("Which ice cream would you like to modify? ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            //calls modifyicecream method
-            c.currentOrder.ModifyIceCream(id);
-            //confirmation message
-            Console.WriteLine("Ice cream order successfully modified!");
+            try
+            {
+                //ask for user input of which specific ice cream order to modify
+                Console.Write("Which ice cream would you like to modify? ");
+                int id = Convert.ToInt32(Console.ReadLine());
+                //calls modifyicecream method
+                c.currentOrder.ModifyIceCream(id);
+                //confirmation message
+                Console.WriteLine("Ice cream order successfully modified!");
+            }
+            catch (FormatException fx)
+            {
+                Console.WriteLine("Please enter the correct Ice cream ID");
+            }
         }
         else if (opt == "2")
         {
-            //retrieve associated customer
-            Customer customer = customerDict[cname];
-            //makeOrder creates order and returns order object
-            Order neworder = customer.MakeOrder();
-            //set the order's properties
-            neworder.TimeReceived = DateTime.Now;
-            neworder.id = currOrderID;
-            //add the new ice cream order to the customer's current order
-            customer.currentOrder = neworder;
-            //append the order to the appropriate queue
-            //check customer's tier
-            if (customer.rewards.tier == "Gold")
+            //store each current order icecream into a list to be printed out
+            List<IceCream> iceCreams = c.currentOrder.iceCreamList;
+            //call the iceCream method to create a new ice cream
+            IceCream newIcecream =  orderMaker.iceCream();
+            //add the new ice cream to the current order
+            c.currentOrder.AddIceCream(newIcecream);
+            //Confirmation message
+            Console.WriteLine("New ice cream added to the order!");
+            //print icecream to show the newly added ice cream
+            for (int i = 0; i < iceCreams.Count; i++)
             {
-                goldQueue.Enqueue(neworder);
+                Console.WriteLine($"ID: {i}\n{iceCreams[i]}\n\n");
             }
-            else
-            {
-                regularQueue.Enqueue(neworder);
-            }
-            //confirmation message
-            Console.WriteLine("Order has been successfully made!");
-            //update the order ID
-            currOrderID++;
         }
         else if (opt == "3")
         {
             //store each current order icecream into a list to be printed out
             List<IceCream> iceCreams = c.currentOrder.iceCreamList;
-            //print out the id of each icecream in the order and each icecream details
-            for (int i = 0; i < iceCreams.Count; i++)
+            //if customer only has ordered 1 ice cream, he will not be able to access this option to delete ice cream
+            //as he cannot have 0 ice creams in an order
+            if (iceCreams.Count <= 1)
             {
-                Console.WriteLine($"ID: {i}\n{iceCreams[i]}\n\n");
+                Console.WriteLine("You cannot have 0 ice creams in an order.\nOrder more ice creams!");
+                continue;
             }
-            //ask for user input on which icecream id would they like to remove
-            Console.Write("Which ice cream id would you like to cancel? ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            //remove the icecream by calling the method
-            c.currentOrder.DeleteIceCream(id);
+            else
+            {
+                //print out the id of each icecream in the order and each icecream details
+                for (int i = 0; i < iceCreams.Count; i++)
+                {
+                    Console.WriteLine($"ID: {i}\n{iceCreams[i]}\n\n");
+                }
+                try
+                {
+                    //ask for user input on which icecream id would they like to remove
+                    Console.Write("Which ice cream id would you like to cancel? ");
+                    int id = Convert.ToInt32(Console.ReadLine());
+                    //remove the icecream by calling the method
+                    c.currentOrder.DeleteIceCream(id);
+                }
+                catch (FormatException fx)
+                {
+                    Console.WriteLine("Please enter the correct Ice cream ID.");
+                }
+            }
         }
 
     }
