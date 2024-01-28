@@ -326,7 +326,7 @@ void advancedB()
             double orderAmt = o.CalculateTotal();
             totalAmt += orderAmt;
             //subsequently add each order cost into each of their respective months
-            int monthindex = o.TimeFulfilled.Value.Month - 1;
+            int monthindex = o.TimeFulfilled.Value.Month - 1; // -1 as the Month component starts from index 1
             monthlyAmt[monthindex] += orderAmt;
         }
         //display results
