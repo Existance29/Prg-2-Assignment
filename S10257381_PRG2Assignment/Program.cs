@@ -290,6 +290,67 @@ void advancedA()
 
 void advancedB()
 {
+    try
+    {
+        //prompt for year
+        Console.Write("Enter the year: ");
+        int inpYr = Convert.ToInt32(Console.ReadLine());
+        //brings user back to menu if user enter a year that is after the current year
+        if (inpYr > DateTime.Now.Year)
+        {
+            Console.WriteLine("Please enter a valid year.");
+            return;
+        }
+        //create a list to store orders in selected year
+        List<Order> ordersInYr = new List<Order>();
+        //retrieve orders fulfilled in the inputted year
+        foreach (Customer customer in customerDict.Values)
+        {
+            foreach (Order order in customer.orderHistory)
+            {
+                //adds the orders into ordersInYr list only when order has been fulfilled
+                if (order.TimeFulfilled.HasValue && order.TimeFulfilled.Value.Year == inpYr)
+                {
+                    ordersInYr.Add(order);
+                }
+            }
+        }
+        //storing each cost based on its month
+        double[] monthlyAmt = new double[12]; //0 for Jan, 11 for Dec
+        //accumulates all of the cost across the whole year
+        double totalAmt = 0;
+
+        foreach (Order o in ordersInYr)
+        {
+            //calculate each order cost and add into the totalAmt
+            double orderAmt = o.CalculateTotal();
+            totalAmt += orderAmt;
+            //subsequently add each order cost into each of their respective months
+            int monthindex = o.TimeFulfilled.Value.Month - 1;
+            monthlyAmt[monthindex] += orderAmt;
+        }
+        //display results
+        Console.WriteLine("Monthly charged amounts breakdown for {0}", inpYr);
+        //used to display each month, if not it will just display numbers 0-11
+        string[] monthNames = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+        for (int month = 0; month < 12; month++)
+        {
+            string mnthName = monthNames[month];
+            Console.WriteLine($"{mnthName} {inpYr}: {monthlyAmt[month]:F2}");
+        }
+        //display total amount
+        Console.WriteLine($"Total charged amounts for {inpYr}: ${totalAmt:F2}");
+    }
+    catch (FormatException fx)
+    {
+        //catch exception if user does not enter an integer
+        Console.WriteLine("A valid year must be an integer!");
+    }
+    catch (IndexOutOfRangeException ex)
+    {
+        //if somehow, index is out of range of the mnthName array
+        Console.WriteLine(ex.Message);
+    }
 
 }
 
@@ -305,6 +366,7 @@ while (true)
     Console.WriteLine("[5] Display order details of a customer");
     Console.WriteLine("[6] Modify order details");
     Console.WriteLine("[7] Process an order and checkout");
+    Console.WriteLine("[8] Monthly charged amounts and total charged amounts for the year");
     Console.WriteLine("[0] Exit");
     Console.WriteLine("-------------------------------");
     Console.Write("Enter an option: ");
