@@ -188,8 +188,28 @@ Queue<Order> regularQueue = new Queue<Order>();
 //it will be added to orders.csv
 List<IceCream> orderedIceCreams = new List<IceCream>();
 
-//Add a list to store new orders that have been fulfilled
-List<Order> fulfilledOrder = new List<Order>();
+void appendToOrdercsv(Order order)
+{
+  
+    //Add a list to store new orders that have been fulfilled
+    List<Order> fulfilledOrder = new List<Order>();
+
+    foreach (Customer customer in customerDict.Values)
+    {
+        foreach (Order orders in customer.orderHistory)
+        {
+            if (order.TimeFulfilled.HasValue)
+            {
+                string format = $"{order.id},{orders.id},{order.TimeReceived},{order.TimeFulfilled},{order.iceCreamList}";
+                File.AppendAllLines("orders.csv", format);
+            }
+            
+        }
+    }
+    
+
+}
+
 
 void advancedA()
 {
@@ -243,7 +263,7 @@ void advancedA()
         {
             if (x.CalculatePrice() > highest)
             {
-                birthdayIndex += 1
+                birthdayIndex += 1;
                 highest = x.CalculatePrice();
                 break;
             } 
@@ -652,7 +672,7 @@ while (true)
     }
 
     Console.WriteLine();
-
+    
 }
 
 
