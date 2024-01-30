@@ -188,6 +188,9 @@ Queue<Order> regularQueue = new Queue<Order>();
 //it will be added to orders.csv
 List<IceCream> orderedIceCreams = new List<IceCream>();
 
+//Add a list to store new orders that have been fulfilled
+List<Order> fulfilledOrder = new List<Order>();
+
 void advancedA()
 {
     //Initialise the variable to store the order object
@@ -385,6 +388,8 @@ while (true)
         }
         //add new customers to Customer.csv
         File.AppendAllLines($"{curr_dir}customers.csv", customerAdd);
+
+
         break;
     }
     else if (inp == "1")
