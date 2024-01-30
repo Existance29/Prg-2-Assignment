@@ -234,13 +234,19 @@ void advancedA()
     }
     Console.WriteLine($"Membership Status: {customer.rewards.tier}\nMembership Points: {customer.rewards.points}");
     //check if birthday and deduct the cost of the most expensive ice cream
+    int birthdayIndex = -1;
     if (customer.Isbirthday())
     {
         //find the most expensive ice cream
         double highest = 0;
         foreach (IceCream x in order.iceCreamList)
         {
-            if (x.CalculatePrice() > highest) highest = x.CalculatePrice();
+            if (x.CalculatePrice() > highest)
+            {
+                birthdayIndex += 1
+                highest = x.CalculatePrice();
+                break;
+            } 
         }
         //deduct the ice cream cost from the bill
         total -= highest;
@@ -254,8 +260,14 @@ void advancedA()
     if (customer.rewards.punchCard == 10)
     {
         double punchDeduct = order.iceCreamList[0].CalculatePrice();
-        total -= punchDeduct;
-        Console.WriteLine($"11th ice cream: -${punchDeduct.ToString("0.00")}");
+        //account for the case where the same ice cream will get subtracted by both the birthday + punch card
+        //do not subtract the punchcard, since its already been subtracted by birthday
+        //reset punch card anyways
+        if (birthdayIndex != 0)
+        {
+            total -= punchDeduct;
+            Console.WriteLine($"11th ice cream: -${punchDeduct.ToString("0.00")}");
+        }
         //reset punch card
         customer.rewards.punchCard = 0;
     }
