@@ -234,12 +234,12 @@ void appendToOrdercsv()
                     }
                     string dipped = "";
                     string waffleFlavour = "";
-                    if (iceCreams[i] is Cone)
+                    if (iceCreams[i].options.ToLower() == "cone")
                     {
                         Cone coneCast = (Cone)iceCreams[i];
                         dipped = coneCast.dipped.ToString();
                     } 
-                    else if (iceCreams[i] is Waffle) 
+                    else if (iceCreams[i].options.ToLower() == "waffle") 
                     {
                         Waffle waffleCast = (Waffle)iceCreams[i];
                         waffleFlavour = waffleCast.waffleFlavour;
