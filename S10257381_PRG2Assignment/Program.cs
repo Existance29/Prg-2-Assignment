@@ -195,7 +195,7 @@ void appendToOrdercsv()
     List<string> fulfilledOrder = new List<string>();
     List<string> toppingAdd = new List<string>();
     List<string> flavoursAdd = new List<string>();
-
+    //when orders.csv file is over written, the file header will still remain
     fulfilledOrder.Add("Id,MemberId,TimeReceived,TimeFulfilled,Option,Scoops,Dipped,WaffleFlavour,Flavour1,Flavour2,Flavour3,Topping1,Topping2,Topping3,Topping4");
     //append orders to order.csv
     //loop through each customer and each order
@@ -223,12 +223,12 @@ void appendToOrdercsv()
                             flavoursAdd.Add(f.type);
                         }
                     }
-                    //add blanks so that flavoursAdd and toppingAdd will always be length 3 to avoid messing up the csv format
+                    //add blanks so that flavoursAdd and toppingAdd will always be length 3/4 respectively to avoid messing up the csv format
                     for (int k = 0; k < 3 - flavourList.Count; k++)
                     {
                         flavoursAdd.Add("");
                     }
-                    for (int m = 0; m < 3 - toppingList.Count; m++)
+                    for (int m = 0; m < 4 - toppingList.Count; m++)
                     {
                         toppingAdd.Add("");
                     }
