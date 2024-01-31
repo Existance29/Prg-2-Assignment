@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 //==========================================================
 namespace S10257381_PRG2Assignment
 {
-    class IceCream
+    abstract class IceCream
     {
         //Class properties
         public string option { get; set; }
@@ -33,34 +33,7 @@ namespace S10257381_PRG2Assignment
         //Since scoop and topping calculations are the same for all options (waffle is slightly different but can still be applied),
         //Perform the calculation in the superclass method, to be easily used by its subclasses
         //Use virtual as it is to be overrided by subclasses for their unique calculations
-        public virtual double CalculatePrice() {
-            //Initalise output variable and calculate topping cost
-            double finalout = toppings.Count;
-            //Calculate scoop cost (number of scoops)
-            if (scoops == 1)
-            {
-                finalout += 4;
-            }
-            else if (scoops == 2)
-            {
-                finalout += 5.5;
-            }
-            else
-            {
-                finalout += 6.5;
-            }
-
-            //Calculate scoop cost (flavour type)
-            //Iterate though the flavours
-            //For every premium flavour, +2 to the cost
-            foreach (Flavour f in flavours)
-            {
-                if (f.premium) {
-                    finalout += 2*f.quantity; 
-                }
-            }
-            return finalout;
-        }
+        public abstract double CalculatePrice();
 
         //Return values of class properties
         public override string ToString() {
@@ -83,7 +56,33 @@ namespace S10257381_PRG2Assignment
         public override double CalculatePrice()
         {
             //Calculate topping and scoop cost
-            return base.CalculatePrice(); 
+            //Initalise output variable and calculate topping cost
+            double finalout = toppings.Count;
+            //Calculate scoop cost (number of scoops)
+            if (scoops == 1)
+            {
+                finalout += 4;
+            }
+            else if (scoops == 2)
+            {
+                finalout += 5.5;
+            }
+            else
+            {
+                finalout += 6.5;
+            }
+
+            //Calculate scoop cost (flavour type)
+            //Iterate though the flavours
+            //For every premium flavour, +2 to the cost
+            foreach (Flavour f in flavours)
+            {
+                if (f.premium)
+                {
+                    finalout += 2 * f.quantity;
+                }
+            }
+            return finalout;
         }
     }
 
@@ -102,7 +101,31 @@ namespace S10257381_PRG2Assignment
         public override double CalculatePrice()
         {
             //Initalise output variable and calculate topping and scoop cost
-            double finalout = base.CalculatePrice();
+            double finalout = toppings.Count;
+            //Calculate scoop cost (number of scoops)
+            if (scoops == 1)
+            {
+                finalout += 4;
+            }
+            else if (scoops == 2)
+            {
+                finalout += 5.5;
+            }
+            else
+            {
+                finalout += 6.5;
+            }
+
+            //Calculate scoop cost (flavour type)
+            //Iterate though the flavours
+            //For every premium flavour, +2 to the cost
+            foreach (Flavour f in flavours)
+            {
+                if (f.premium)
+                {
+                    finalout += 2 * f.quantity;
+                }
+            }
             //Check if its chocolate-dipped and calculate cost accordingly
             if (dipped) 
             {
@@ -136,10 +159,32 @@ namespace S10257381_PRG2Assignment
 
         public override double CalculatePrice()
         {
-            //Initalise output variable and calculate topping and scoop cost
-            double finalout = base.CalculatePrice();
-            //Account for the increase in scoop cost for waffles
-            finalout += 3;
+            //Initalise output variable and calculate topping cost
+            double finalout = toppings.Count;
+            //Calculate scoop cost (number of scoops)
+            if (scoops == 1)
+            {
+                finalout += 7;
+            }
+            else if (scoops == 2)
+            {
+                finalout += 8.5;
+            }
+            else
+            {
+                finalout += 9.5;
+            }
+
+            //Calculate scoop cost (flavour type)
+            //Iterate though the flavours
+            //For every premium flavour, +2 to the cost
+            foreach (Flavour f in flavours)
+            {
+                if (f.premium)
+                {
+                    finalout += 2 * f.quantity;
+                }
+            }
 
             //Check and calculate for Red velvet, charcoal, and pandan waffle flavours
             //Initalise a new array, storing the waffle flavours with extra cost
