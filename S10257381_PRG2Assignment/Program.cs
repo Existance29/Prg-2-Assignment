@@ -196,7 +196,8 @@ void appendToOrdercsv()
     List<string> toppingAdd = new List<string>();
     List<string> flavoursAdd = new List<string>();
     
-
+    //append orders to order.csv
+    //loop through each customer and each order
     foreach (Customer customer in customerDict.Values)
     {
         foreach (Order order in customer.orderHistory)
@@ -207,31 +208,38 @@ void appendToOrdercsv()
                 for (int i = 0; i < iceCreams.Count; i++)
                 {
                     List<Flavour> flavourList = iceCreams[i].flavours;
-
+                    //get toppings
                     foreach (Topping t in iceCreams[i].toppings)
                     {
-                        if (t == null)
-                        {
-                            toppingAdd.Add(",");
-                        }
-                        else
-                        {
-                            toppingAdd.Add(t.ToString());
-                        }
+                        toppingAdd.Add(t.ToString());
                     }
-                    foreach (Flavour f in iceCreams[i].flavours)
+                    //get flavours
+                    foreach (Flavour f in flavourList)
                     {
-                        for (int j = 0; i < f.quantity; i++)
+                        for (int j = 0; j < f.quantity; j++)
                         {
-                            flavoursAdd.Add(j.ToString());
-                        }
-                        for (int k = 0; i < 3-flavourList.Count; i++)
-                        {
-                            flavoursAdd.Add("");
+                            flavoursAdd.Add(f.type);
                         }
                     }
-
-                    string format = $"{order.id},{customer.memberid},{order.TimeReceived.ToString("dd/MM/yyyy HH:mm")},{order.TimeFulfilled.Value.ToString("dd/MM/yyyy HH:mm")},{iceCreams[i].option},{iceCreams[i].scoops},{string.Join(",",flavoursAdd)},{string.Join(",",toppingAdd)}";
+                    //add blanks so that flavoursAdd will always be length 3 to avoid messing up the csv format
+                    for (int k = 0; i < 3 - flavourList.Count; i++)
+                    {
+                        flavoursAdd.Add("");
+                    }
+                    string dipped = "";
+                    string waffleFlavour = "";
+                    string option = iceCreams[i].option;
+                    if (iceCreams[i] is Cone)
+                    {
+                        Cone coneCast = (Cone)iceCreams[i];
+                        dipped = coneCast.dipped.ToString();
+                    } 
+                    else if (option.ToLower() == "waffle") 
+                    {
+                        Waffle waffleCast = (Waffle)iceCreams[i];
+                        waffleFlavour = waffleCast.waffleFlavour;
+                    }
+                    string format = $"{order.id},{customer.memberid},{order.TimeReceived.ToString("dd/MM/yyyy HH:mm")},{order.TimeFulfilled.Value.ToString("dd/MM/yyyy HH:mm")},{option},{iceCreams[i].scoops},{dipped},{waffleFlavour},{string.Join(",",flavoursAdd)},{string.Join(",",toppingAdd)}";
                     fulfilledOrder.Add(format);
                     flavoursAdd.Clear();
                     toppingAdd.Clear();
