@@ -234,13 +234,13 @@ void appendToOrdercsv()
                     }
                     string dipped = "";
                     string waffleFlavour = "";
-                    if (iceCreams[i].options.ToLower() == "cone")
+                    if (iceCreams[i].option.ToLower() == "cone")
                     {
-                        Console.WriteLine("cone detected")
+                        Console.WriteLine("cone detected");
                         Cone coneCast = (Cone)iceCreams[i];
                         dipped = coneCast.dipped.ToString();
                     } 
-                    else if (iceCreams[i].options.ToLower() == "waffle") 
+                    else if (iceCreams[i].option.ToLower() == "waffle") 
                     {
                         Waffle waffleCast = (Waffle)iceCreams[i];
                         waffleFlavour = waffleCast.waffleFlavour;
