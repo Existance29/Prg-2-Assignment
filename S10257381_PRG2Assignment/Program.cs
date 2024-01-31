@@ -363,7 +363,7 @@ void advancedA()
 
     //increment punchCard
     //use max.min to ensure it doesnt exceed 10
-    customer.rewards.punchCard += Math.Min((order.iceCreamList.Count + customer.rewards.punchCard), 10);
+    customer.rewards.punchCard = Math.Min((order.iceCreamList.Count + customer.rewards.punchCard), 10);
     Console.WriteLine($"\nNew punch card: {customer.rewards.punchCard}");
     //calculate how many points to give to the user
     int pointsEarned = Convert.ToInt32(Math.Floor(total * 0.72));
