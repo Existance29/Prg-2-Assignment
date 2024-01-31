@@ -206,6 +206,8 @@ void appendToOrdercsv()
             {
                 for (int i = 0; i < iceCreams.Count; i++)
                 {
+                    List<Flavour> flavourList = iceCreams[i].flavours;
+
                     foreach (Topping t in iceCreams[i].toppings)
                     {
                         if (t == null)
@@ -219,13 +221,13 @@ void appendToOrdercsv()
                     }
                     foreach (Flavour f in iceCreams[i].flavours)
                     {
-                        if (f == null)
+                        for (int j = 0; i < f.quantity; i++)
                         {
-                            flavoursAdd.Add(",");
+                            flavoursAdd.Add(j.ToString());
                         }
-                        else
+                        for (int k = 0; i < 3-flavourList.Count; i++)
                         {
-                            flavoursAdd.Add(f.ToString());
+                            flavoursAdd.Add("");
                         }
                     }
 
