@@ -188,25 +188,62 @@ Queue<Order> regularQueue = new Queue<Order>();
 //it will be added to orders.csv
 List<IceCream> orderedIceCreams = new List<IceCream>();
 
-void appendToOrdercsv(Order order)
+void appendToOrdercsv()
 {
-  
+
     //Add a list to store new orders that have been fulfilled
-    List<Order> fulfilledOrder = new List<Order>();
+    List<string> fulfilledOrder = new List<string>();
+    List<string> toppingAdd = new List<string>();
+    List<string> flavoursAdd = new List<string>();
+    
 
     foreach (Customer customer in customerDict.Values)
     {
-        foreach (Order orders in customer.orderHistory)
+        foreach (Order order in customer.orderHistory)
         {
+            List<IceCream> iceCreams = order.iceCreamList;
             if (order.TimeFulfilled.HasValue)
             {
-                string format = $"{order.id},{orders.id},{order.TimeReceived},{order.TimeFulfilled},{order.iceCreamList}";
-                File.AppendAllLines("orders.csv", format);
+                for (int i = 0; i < iceCreams.Count; i++)
+                {
+                    foreach (Topping t in iceCreams[i].toppings)
+                    {
+                        if (t == null)
+                        {
+                            toppingAdd.Add(",");
+                        }
+                        else
+                        {
+                            toppingAdd.Add(t.ToString());
+                        }
+                    }
+                    foreach (Flavour f in iceCreams[i].flavours)
+                    {
+                        if (f == null)
+                        {
+                            flavoursAdd.Add(",");
+                        }
+                        else
+                        {
+                            flavoursAdd.Add(f.ToString());
+                        }
+                    }
+
+                    string format = $"{order.id},{customer.memberid},{order.TimeReceived.ToString("dd/MM/yyyy HH:mm")},{order.TimeFulfilled.Value.ToString("dd/MM/yyyy HH:mm")},{iceCreams[i].option},{iceCreams[i].scoops},{string.Join(",",flavoursAdd)},{string.Join(",",toppingAdd)}";
+                    fulfilledOrder.Add(format);
+                    flavoursAdd.Clear();
+                    toppingAdd.Clear();
+                }
+
+
             }
-            
+
         }
     }
-    
+
+
+    File.AppendAllLines($"{curr_dir}orders.csv", fulfilledOrder);
+
 
 }
 
@@ -321,6 +358,8 @@ void advancedA()
     customer.orderHistory.Add(order);
     //remove the currentOrder from the customer
     customer.currentOrder = null;
+
+    
 }
 
 void advancedB()
@@ -421,7 +460,7 @@ while (true)
         //add new customers to Customer.csv
         File.AppendAllLines($"{curr_dir}customers.csv", customerAdd);
 
-
+        appendToOrdercsv();
         break;
     }
     else if (inp == "1")
