@@ -222,24 +222,23 @@ void appendToOrdercsv()
                         }
                     }
                     //add blanks so that flavoursAdd will always be length 3 to avoid messing up the csv format
-                    for (int k = 0; i < 3 - flavourList.Count; i++)
+                    for (int k = 0; k < 3 - flavourList.Count; k++)
                     {
                         flavoursAdd.Add("");
                     }
                     string dipped = "";
                     string waffleFlavour = "";
-                    string option = iceCreams[i].option;
                     if (iceCreams[i] is Cone)
                     {
                         Cone coneCast = (Cone)iceCreams[i];
                         dipped = coneCast.dipped.ToString();
                     } 
-                    else if (option.ToLower() == "waffle") 
+                    else if (iceCreams[i] is Waffle) 
                     {
                         Waffle waffleCast = (Waffle)iceCreams[i];
                         waffleFlavour = waffleCast.waffleFlavour;
                     }
-                    string format = $"{order.id},{customer.memberid},{order.TimeReceived.ToString("dd/MM/yyyy HH:mm")},{order.TimeFulfilled.Value.ToString("dd/MM/yyyy HH:mm")},{option},{iceCreams[i].scoops},{dipped},{waffleFlavour},{string.Join(",",flavoursAdd)},{string.Join(",",toppingAdd)}";
+                    string format = $"{order.id},{customer.memberid},{order.TimeReceived.ToString("dd/MM/yyyy HH:mm")},{order.TimeFulfilled.Value.ToString("dd/MM/yyyy HH:mm")},{iceCreams[i].option},{iceCreams[i].scoops},{dipped},{waffleFlavour},{string.Join(",",flavoursAdd)},{string.Join(",",toppingAdd)}";
                     fulfilledOrder.Add(format);
                     flavoursAdd.Clear();
                     toppingAdd.Clear();
