@@ -232,11 +232,11 @@ void appendToOrdercsv()
                     {
                         toppingAdd.Add("");
                     }
+                    //to print out dipped and waffle flavour into csv file
                     string dipped = "";
                     string waffleFlavour = "";
                     if (iceCreams[i] is Cone)
                     {
-                        Console.WriteLine("cone detected");
                         Cone coneCast = (Cone)iceCreams[i];
                         dipped = coneCast.dipped.ToString();
                     } 
@@ -245,8 +245,10 @@ void appendToOrdercsv()
                         Waffle waffleCast = (Waffle)iceCreams[i];
                         waffleFlavour = waffleCast.waffleFlavour;
                     }
+                    //line to be written into csv file
                     string format = $"{order.id},{customer.memberid},{order.TimeReceived.ToString("dd/MM/yyyy HH:mm")},{order.TimeFulfilled.Value.ToString("dd/MM/yyyy HH:mm")},{iceCreams[i].option},{iceCreams[i].scoops},{dipped},{waffleFlavour},{string.Join(",",flavoursAdd)},{string.Join(",",toppingAdd)}";
                     fulfilledOrder.Add(format);
+                    //clear list to prevent duplication
                     flavoursAdd.Clear();
                     toppingAdd.Clear();
                 }
