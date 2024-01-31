@@ -236,6 +236,7 @@ void appendToOrdercsv()
                     string waffleFlavour = "";
                     if (iceCreams[i].options.ToLower() == "cone")
                     {
+                        Console.WriteLine("cone detected")
                         Cone coneCast = (Cone)iceCreams[i];
                         dipped = coneCast.dipped.ToString();
                     } 
