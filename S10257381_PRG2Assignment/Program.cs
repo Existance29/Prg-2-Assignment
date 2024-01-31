@@ -130,7 +130,7 @@ for (int i = 1; i < orderFile.Length; i++)
         //if there is a topping, add it to the list
         if (x[j] != "") toppings.Add(new Topping(x[j]));
     }
-
+    
     //merge duplicate flavours together into one flavour object with the appropriate quantity
     //store flavours of the ice cream in a dictionary
     //key is flavour name, value is flavour object
@@ -195,7 +195,8 @@ void appendToOrdercsv()
     List<string> fulfilledOrder = new List<string>();
     List<string> toppingAdd = new List<string>();
     List<string> flavoursAdd = new List<string>();
-    
+
+    fulfilledOrder.Add("Id,MemberId,TimeReceived,TimeFulfilled,Option,Scoops,Dipped,WaffleFlavour,Flavour1,Flavour2,Flavour3,Topping1,Topping2,Topping3,Topping4");
     //append orders to order.csv
     //loop through each customer and each order
     foreach (Customer customer in customerDict.Values)
@@ -208,6 +209,7 @@ void appendToOrdercsv()
                 for (int i = 0; i < iceCreams.Count; i++)
                 {
                     List<Flavour> flavourList = iceCreams[i].flavours;
+                    List<Topping> toppingList = iceCreams[i].toppings;
                     //get toppings
                     foreach (Topping t in iceCreams[i].toppings)
                     {
@@ -221,10 +223,14 @@ void appendToOrdercsv()
                             flavoursAdd.Add(f.type);
                         }
                     }
-                    //add blanks so that flavoursAdd will always be length 3 to avoid messing up the csv format
+                    //add blanks so that flavoursAdd and toppingAdd will always be length 3 to avoid messing up the csv format
                     for (int k = 0; k < 3 - flavourList.Count; k++)
                     {
                         flavoursAdd.Add("");
+                    }
+                    for (int m = 0; m < 3 - toppingList.Count; m++)
+                    {
+                        toppingAdd.Add("");
                     }
                     string dipped = "";
                     string waffleFlavour = "";
@@ -251,7 +257,7 @@ void appendToOrdercsv()
     }
 
 
-    File.AppendAllLines($"{curr_dir}orders.csv", fulfilledOrder);
+    File.WriteAllLines($"{curr_dir}orders.csv", fulfilledOrder);
 
 
 }
